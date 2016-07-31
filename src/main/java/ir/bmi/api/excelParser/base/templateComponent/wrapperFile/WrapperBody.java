@@ -3,6 +3,7 @@ package ir.bmi.api.excelParser.base.templateComponent.wrapperFile;
 import ir.bmi.api.excelParser.exception.IOExcelException;
 import ir.bmi.api.excelParser.parserWrapper.ParserBody;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,11 @@ import java.util.List;
 public class WrapperBody  {
     private List<WrapperRow> bodyRows = new ArrayList<WrapperRow>();
     private ParserBody parserBody;
+    private int index;
 
     public WrapperBody(ParserBody parserBody) throws IOExcelException {
         this.parserBody = parserBody;
-        read();
+         read();
     }
 
     private void initializeBodySheet() throws IOExcelException {

@@ -3,10 +3,12 @@ package ir.bmi.api.excelParser.ioExcel.readExcelFile;
 import ir.bmi.api.excelParser.base.templateComponent.converter.Converter;
 import ir.bmi.api.excelParser.base.templateComponent.validation.Validation;
 import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.*;
-import ir.bmi.api.excelParser.exception.BaseExcelParserException;
-import ir.bmi.api.excelParser.exception.ParserExcelException;
+import ir.bmi.api.excelParser.enumParser.StateValidationItem;
+import ir.bmi.api.excelParser.exception.*;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.reflection.Utility;
+import ir.bmi.api.excelParser.validation.ValidationResult;
+import ir.bmi.api.excelParser.validation.ValidationResultItem;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -15,49 +17,77 @@ import java.util.List;
  * Created by alotfi on 5/28/2016.
  */
 public abstract class CreateObjectFromMetaData {
+
+    public static final int NO_VALIDATION = 0;
     private WrapperFileImpl wrapperExcel;
     private WrapperSheet sheet;
     private WrapperBody rows;
     private Object instance;
+    protected ValidationResult validationResult;
 
-    public CreateObjectFromMetaData(Object instance,WrapperFileImpl wrapperFile) {
+
+    public CreateObjectFromMetaData(Object instance, WrapperFileImpl wrapperFile, ValidationResult validationResult) {
         this.wrapperExcel = wrapperFile;
         this.instance = instance;
+        this.validationResult = validationResult;
     }
 
-    public static CreateObjectFromMetaData createReaderField(Object instance, MetaDataObject metaData,WrapperFileImpl wrapperExcel) throws BaseExcelParserException {
+    public static CreateObjectFromMetaData createReaderField(Object instance, MetaDataObject metaData, WrapperFileImpl wrapperExcel, ValidationResult validationResult) throws BaseExcelParserException {
         if (metaData.getComplex() && metaData.getArray())
-            return new CreateComplexListField(instance,wrapperExcel);
+            return new CreateComplexListField(instance, wrapperExcel, validationResult);
         if (metaData.getComplex() && !metaData.getArray())
-            return new CreateComplexField(instance,wrapperExcel);
-        throw new ParserExcelException("can not parse this filed" + metaData.getName(), new IllegalArgumentException());
+            return new CreateComplexField(instance, wrapperExcel, validationResult);
+        throw new IOExcelException("can not parse this filed" + metaData.getName(), new IllegalArgumentException());
     }
 
-    protected abstract void writeField(MetaDataObject metaDataObject,Object obj) throws BaseExcelParserException;
+    protected abstract void writeField(MetaDataObject metaDataObject, Object obj) throws BaseExcelParserException;
+
     protected abstract void readField(WrapperBody body, MetaDataObject metaDate) throws BaseExcelParserException;
 
     public void read(MetaDataObject metaDate) throws BaseExcelParserException {
         sheet = getSheet(metaDate);
-//        headerRows = sheet.getHeaderRows().get;
         rows = sheet.getBodyRows();
         if (rows == null)
             return;
-        readField( rows, metaDate);
+        readField(rows, metaDate);
     }
 
-    private WrapperSheet getSheet(MetaDataObject metaDate) throws ParserExcelException {
+    private WrapperSheet getSheet(MetaDataObject metaDate) throws ParserException {
         return wrapperExcel.getSheetByName(metaDate.getSheetName());
     }
 
-    protected void createCompositeObject(Object targetObject, WrapperRow row, MetaDataObject metaDate) throws BaseExcelParserException {
+    protected void createRowFromMeatData(Object targetObject, WrapperRow row, MetaDataObject metaDate) {
         int i = 0;
+        int rowNumber = 0;
         for (MetaDataObject meta : metaDate.getMetaDataObjects()) {
-            Field filed = getFieldByMetaData(targetObject, meta);
-            WrapperCell cellOfRowById = row.getCellOfRowById(i);
-            Object value = getCellValue(cellOfRowById);
-            checkValidation(value, meta.getValidations());
-            Utility.setFieldValue(filed, targetObject,  checkConverter(value, meta.getConverters()));
-            i++;
+            try {
+                Field filed = Utility.getFieldByName(targetObject, meta.getName());
+                WrapperCell cellOfRowById = row.getCellOfRowById(i);
+                rowNumber = row.getRowNumber();
+                Object value = getCellValue(cellOfRowById);
+                checkValidation(value, meta, rowNumber);
+                Utility.setFieldValue(filed, targetObject, checkConverter(value, meta, rowNumber));
+                i++;
+
+            } catch (ConverterParserException e) {
+                validationResult.addItem(new ValidationResultItem(StateValidationItem.VALIDATION_ERROR, meta.getDescriptionColumn(), rowNumber, row.getRowData()));
+                break;
+            } catch (ValidationParserException e) {
+                validationResult.addItem(new ValidationResultItem(StateValidationItem.CONVERTER_ERROR, meta.getDescriptionColumn(), rowNumber, row.getRowData()));
+                break;
+            } catch (ReadCellErrorException e) {
+                validationResult.addItem(new ValidationResultItem(StateValidationItem.READ_FIELD_ERROR, meta.getDescriptionColumn(), rowNumber, row.getRowData()));
+                break;
+            } catch (IOExcelException e) {
+                validationResult.addItem(new ValidationResultItem(StateValidationItem.READ_FIELD_ERROR, meta.getDescriptionColumn(), rowNumber, row.getRowData()));
+                break;
+            } catch (ParserException e) {
+                validationResult.addItem(new ValidationResultItem(StateValidationItem.READ_FIELD_ERROR, meta.getDescriptionColumn(), rowNumber, row.getRowData()));
+                break;
+            } catch (Exception e) {
+                validationResult.addItem(new ValidationResultItem(StateValidationItem.READ_FIELD_ERROR, meta.getDescriptionColumn(), rowNumber, row.getRowData()));
+                break;
+            }
         }
     }
 
@@ -65,39 +95,30 @@ public abstract class CreateObjectFromMetaData {
         return cellOfRowById.getCellValue();
     }
 
-    private Field getFieldByMetaData(Object targetObject, MetaDataObject meta) throws BaseExcelParserException {
-        Field filed = null;
-        filed = getTargetFiled(targetObject, meta.getName());
-        filed.setAccessible(true);
-        return filed;
-    }
-
-    private Object checkConverter(Object value, Converter converter) throws ParserExcelException {
+    private Object checkConverter(Object value, MetaDataObject metaDataObject, int rowNumber) throws ConverterParserException {
+        Converter converter = metaDataObject.getConverters();
         if (converter == null)
             return value;
-        return converter.convertTo(value);
-    }
-
-    private void checkValidation(Object value, List<Validation> validations) throws ParserExcelException {
-        if (validations.size() == 0)
-            return;
-
-        for (Validation validation : validations) {
-            if (!validation.executeValidation(value))
-                throw new ParserExcelException("value Con not be null.Validation Erroe", new IllegalArgumentException());
+        try {
+            return converter.convertTo(value);
+        } catch (Exception e) {
+            throw new ConverterParserException();
         }
     }
 
-    private Field getTargetFiled(Object targetObject, Object filedName) throws BaseExcelParserException {
-        try {
-            return targetObject.getClass().getDeclaredField(filedName.toString());
-        } catch (NoSuchFieldException e) {
-            throw new ParserExcelException("error in create instance object" + filedName.getClass().getName(), e);
+    private void checkValidation(Object value, MetaDataObject metaDataObject, int rowNumber) throws ValidationParserException {
+        List<Validation> validations = metaDataObject.getValidations();
+        if (validations.size() == NO_VALIDATION)
+            return;
+        for (Validation validation : validations) {
+            if (!validation.isValid(value))
+                throw new ValidationParserException();
         }
     }
 
     public Object getInstance() {
         return instance;
     }
-
 }
+
+

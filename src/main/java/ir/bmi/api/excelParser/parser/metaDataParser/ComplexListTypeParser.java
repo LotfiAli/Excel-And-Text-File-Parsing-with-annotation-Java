@@ -25,8 +25,9 @@ public class ComplexListTypeParser extends BaseComplexParser {
         metaDataObjectComposite.setArray(true);
         metaDataObjectComposite.setField(field);
         metaDataObjectComposite.setType(type);
-        if (metaDataObjectComposite.getSheetName() == null)
-            metaDataObjectComposite.setSheetName("file");
+        if (metaDataObjectComposite.getSheetName() == null) {
+            metaDataObjectComposite.setSheetName(field.getName());
+        }
 
         metaDataObject.getMetaDataObjects().add(metaDataObjectComposite);
         parseComplexObject(type, metaDataObjectComposite, targetObject, field);

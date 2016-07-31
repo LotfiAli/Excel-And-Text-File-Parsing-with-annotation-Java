@@ -4,13 +4,10 @@ import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperRow;
 import ir.bmi.api.excelParser.exception.IOExcelException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserBody;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,6 +21,7 @@ public class TextParserBody implements ParserBody {
 
 
     public TextParserBody(BufferedReader contentFile) {
+
         this.contentFile = contentFile;
     }
 
@@ -37,6 +35,7 @@ public class TextParserBody implements ParserBody {
         String sCurrentLine;
 
         try {
+//            contentFile.readLine();
             while ((sCurrentLine = contentFile.readLine()) != null) {
                 bodyRows.add(new WrapperRow(new TextParserRow(sCurrentLine)));
             }

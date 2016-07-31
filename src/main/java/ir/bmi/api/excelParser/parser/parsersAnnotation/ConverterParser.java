@@ -1,9 +1,7 @@
 package ir.bmi.api.excelParser.parser.parsersAnnotation;
 
 import ir.bmi.api.excelParser.annotation.converter.ConvertTo;
-import ir.bmi.api.excelParser.base.templateComponent.converter.Converter;
-import ir.bmi.api.excelParser.base.templateComponent.converter.ConvertToLong;
-import ir.bmi.api.excelParser.base.templateComponent.converter.ConverterToString;
+import ir.bmi.api.excelParser.base.templateComponent.converter.*;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parser.TypeObject;
 
@@ -37,14 +35,15 @@ public class ConverterParser extends CollectionValidationBase<Converter> {
         String annotationName = getNameAnnotation(annotation);
         if (annotationName.contains("ConvertTo"))
             switch (typeObject) {
-                case COMPLEX:
-                    break;
-                case INT:
+                 case INT:
+                    return new ConvertToInt();
+                case Long:
                     return new ConvertToLong();
                 case STRING:
                     return new ConverterToString();
-                case Boolean:
-                    break;
+                case FLOAT:
+                    return new ConvertToFloat();
+
             }
         return null;
     }

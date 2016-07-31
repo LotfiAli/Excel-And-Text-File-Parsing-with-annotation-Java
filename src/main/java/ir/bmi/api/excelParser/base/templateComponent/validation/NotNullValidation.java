@@ -6,6 +6,8 @@ package ir.bmi.api.excelParser.base.templateComponent.validation;
 public class NotNullValidation extends ValidationBase {
     @Override
     protected Boolean execute(Object value) {
-          return value!=null;
+        if (value != null)
+            return !"".equals(value.toString());
+        return false;
     }
 }

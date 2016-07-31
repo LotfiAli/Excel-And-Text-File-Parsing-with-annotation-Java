@@ -3,6 +3,7 @@ package ir.bmi.api.excelParser.parserWrapper;
 import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperRow;
 import ir.bmi.api.excelParser.exception.IOExcelException;
 
+import java.io.IOException;
 import java.util.List;
 
 /**

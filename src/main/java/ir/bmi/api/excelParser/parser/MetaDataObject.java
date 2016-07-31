@@ -30,6 +30,8 @@ public class MetaDataObject {
     private int blue;
     private int green;
     private int red;
+    private int countColumn;
+    private String descriptionColumn;
 
 
     public MetaDataObject() {
@@ -173,5 +175,21 @@ public class MetaDataObject {
 
     public void setRed(int red) {
         this.red = red;
+    }
+
+    public int getCountColumn() {
+        return countColumn;
+    }
+
+    public void setCountColumn(int countColumn) {
+        this.countColumn = countColumn;
+    }
+
+    public String getDescriptionColumn() {
+        return descriptionColumn;
+    }
+
+    public void setDescriptionColumn(String descriptionColumn) {
+        this.descriptionColumn = descriptionColumn;
     }
 }

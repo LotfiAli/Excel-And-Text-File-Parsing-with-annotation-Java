@@ -1,7 +1,7 @@
 package ir.bmi.api.excelParser.base.templateComponent.wrapperFile;
 
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
-import ir.bmi.api.excelParser.exception.ParserExcelException;
+import ir.bmi.api.excelParser.exception.ParserException;
 import ir.bmi.api.excelParser.parserWrapper.ParserFile;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 
@@ -26,16 +26,16 @@ public class WrapperFileImpl implements WrapperFile {
         this.metaDataObject = metaDataObject;
     }
 
-    public WrapperSheet getSheetByName(String sheetName) throws ParserExcelException {
+    public WrapperSheet getSheetByName(String sheetName) throws ParserException {
         for (WrapperSheet sheet : wrapperSheets) {
             if (sheet.getSheetName().equals(sheetName))
                 return sheet;
         }
-        throw new ParserExcelException("this file was not sheet name" + sheetName, new IllegalArgumentException());
+        throw new IllegalArgumentException("this file was not sheet name" + sheetName, new IllegalArgumentException());
     }
 
-    public void read() throws BaseExcelParserException {
-        this.wrapperSheets = this.parseFile.parse();
+    public void read(MetaDataObject metaDataObject) throws BaseExcelParserException {
+        this.wrapperSheets = this.parseFile.parse(metaDataObject);
     }
 
     public void write() throws BaseExcelParserException {

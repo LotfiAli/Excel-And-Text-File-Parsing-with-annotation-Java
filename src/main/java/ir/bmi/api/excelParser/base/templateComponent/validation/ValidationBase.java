@@ -9,7 +9,7 @@ public abstract class ValidationBase implements Validation {
 
     protected abstract Boolean execute(Object value);
 
-    public Boolean executeValidation(Object value) {
+    public Boolean isValid(Object value) {
        return execute(value);
     }
 }

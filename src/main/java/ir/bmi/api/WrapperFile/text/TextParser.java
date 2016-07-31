@@ -23,7 +23,7 @@ public class TextParser implements ParserFile {
         this.fileName = fileName;
     }
 
-    public List<WrapperSheet> parse() throws BaseExcelParserException {
+    public List<WrapperSheet> parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
         BufferedReader contentFile = readFile(fileName);
         wrapperSheets.add(new WrapperSheet(new TextParserSheet(contentFile)));
         return wrapperSheets;

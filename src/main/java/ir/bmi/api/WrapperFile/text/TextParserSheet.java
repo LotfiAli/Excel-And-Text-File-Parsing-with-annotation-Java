@@ -5,10 +5,9 @@ import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperHeader;
 import ir.bmi.api.excelParser.exception.IOExcelException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserSheet;
-import org.apache.poi.ss.usermodel.Row;
 
 import java.io.BufferedReader;
-import java.util.Iterator;
+import java.io.IOException;
 
 /**
  * Created by alotfi on 6/6/2016.
@@ -31,8 +30,12 @@ public class TextParserSheet implements ParserSheet {
         this.sheetName = "file";
     }
 
-    public WrapperHeader getHeader() {
-        return null;
+    public WrapperHeader getHeader() throws IOExcelException {
+        try {
+            return new WrapperHeader(new TextParserRow(sheet.readLine()));
+        } catch (IOException e) {
+            throw new IOExcelException("error in read text File", e);
+        }
     }
 
     public WrapperBody getBody() throws IOExcelException {
@@ -41,13 +44,18 @@ public class TextParserSheet implements ParserSheet {
     }
 
     public String getName() {
+
         return sheetName;
     }
 
     public void create() {
-        {
-            TextParserBody parserBody = new TextParserBody(contentFile, metaDataObject.getMetaDataObjects());
-            parserBody.create();
-        }
+        TextParserBody parserBody = new TextParserBody(contentFile, metaDataObject.getMetaDataObjects());
+        parserBody.create();
+
+//        StringParserHeader textParserHeader=new StringParserHeader(contentFile,metaDataObject.getMetaDataObjects().get(0));
+//        textParserHeader.create();
     }
 }
+
+
+

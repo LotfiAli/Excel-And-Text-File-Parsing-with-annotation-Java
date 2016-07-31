@@ -3,7 +3,6 @@ package ir.bmi.api.excelParser.base.templateComponent.wrapperFile;
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parserWrapper.ParserRow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +23,14 @@ public class WrapperRow {
     }
 
     public void read() throws BaseExcelParserException {
-
     }
+
+    public int getRowNumber() {
+        return this.parserRow.rowNumber();
+    }
+
+    public String getRowData() {
+        return parserRow.getRowValueString().toString();
+    }
+
 }

@@ -21,7 +21,7 @@ public class ValidationParser extends CollectionValidationBase<Validation> {
 
     @Override
     protected Validation createParseForAnnotation(Annotation annotation) {
-//        String annotationName = annotation.annotationType().getName();
+//        String annotationName = annotation.annotationType().getAccNum();
         if (checkConstraint(annotation))
             return createValidation(annotation);
         return null;

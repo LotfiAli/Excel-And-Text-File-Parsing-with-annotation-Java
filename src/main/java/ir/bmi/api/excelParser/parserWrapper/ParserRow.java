@@ -10,4 +10,6 @@ import java.util.List;
 public interface ParserRow {
     List<WrapperCell> getCells();
     void create();
+    int rowNumber();
+    Object getRowValueString();
 }

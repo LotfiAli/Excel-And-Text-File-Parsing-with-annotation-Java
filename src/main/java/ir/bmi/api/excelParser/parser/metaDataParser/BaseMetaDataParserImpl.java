@@ -1,7 +1,6 @@
 package ir.bmi.api.excelParser.parser.metaDataParser;
 
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
-import ir.bmi.api.excelParser.exception.ConfigExcelException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.*;
 
@@ -25,6 +24,9 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
         parsersElements.add(new ValidationParser());
         parsersElements.add(new SheetParser());
         parsersElements.add(new ColorParser());
+        parsersElements.add(new CountColumnParser());
+        parsersElements.add(new DescriptionColumnParser());
+
     }
 
     public static MetaDataObject getMetaData(Class value, Object targetObject) throws BaseExcelParserException {
@@ -37,7 +39,7 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
         return metaDataObject;
     }
 
-    protected static BaseMetaDataParser getParser(Field field) throws BaseExcelParserException {
+    protected static BaseMetaDataParser getParser(Field field) throws IllegalArgumentException {
         if (field != null) {
             if (field.getType().isPrimitive() || field.getType() == String.class) {
                 return primitiveParse;
@@ -47,7 +49,7 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
                 return complexParse;
             }
         }
-        throw new ConfigExcelException("Filed Not Support", null);
+        throw new IllegalArgumentException("Filed Not Support", null);
     }
 
     protected MetaDataObject parseElement(Field field) {

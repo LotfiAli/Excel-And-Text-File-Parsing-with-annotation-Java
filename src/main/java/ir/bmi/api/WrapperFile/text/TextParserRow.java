@@ -3,9 +3,7 @@ package ir.bmi.api.WrapperFile.text;
 import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperCell;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserRow;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -53,5 +51,15 @@ public class TextParserRow implements ParserRow {
         spreadsheet.append(row.toString());
 
 
+    }
+
+    @Override
+    public int rowNumber() {
+        return 0;
+    }
+
+    @Override
+    public Object getRowValueString() {
+        return null;
     }
 }

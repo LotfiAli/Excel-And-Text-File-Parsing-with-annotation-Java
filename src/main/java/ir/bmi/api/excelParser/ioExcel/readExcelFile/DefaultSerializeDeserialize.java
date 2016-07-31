@@ -1,10 +1,12 @@
 package ir.bmi.api.excelParser.ioExcel.readExcelFile;
 
-import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperFileImpl;
-import ir.bmi.api.excelParser.parserWrapper.ParserFile;
+import ir.bmi.api.excelParser.exception.BaseExcelParserException;
+import ir.bmi.api.excelParser.model.ResultModel;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
+import ir.bmi.api.excelParser.parserWrapper.ParserFile;
 import ir.bmi.api.excelParser.reflection.Utility;
+import ir.bmi.api.excelParser.validation.ValidationResult;
 
 /**
  * Created by alotfi on 5/25/2016.
@@ -14,22 +16,24 @@ import ir.bmi.api.excelParser.reflection.Utility;
 public final class DefaultSerializeDeserialize implements SerializeFile, DeSerializeFile {
 
     private WrapperFileImpl wrapperExcel;
+    private ValidationResult validationResult;
 
     public DefaultSerializeDeserialize() throws BaseExcelParserException {
-
+        validationResult = new ValidationResult();
     }
 
-    public <T> T deserializeFile(MetaDataObject metaDataObject, Class typeResult, ParserFile parserFile) throws BaseExcelParserException {
+    public ResultModel deserializeFile(MetaDataObject metaDataObject, Class typeResult, ParserFile parserFile) throws BaseExcelParserException {
         Object targetObject = null;
-//        new TextParser(this.pathFile)
         this.wrapperExcel = new WrapperFileImpl(parserFile);
-        this.wrapperExcel.read();
+        this.wrapperExcel.read(metaDataObject);
         targetObject = createObjectFromMetaData(metaDataObject, typeResult);
-        return (T) targetObject;
+        ResultModel resultModel = new ResultModel();
+        resultModel.setValidationResult(validationResult);
+        resultModel.setResultModel(targetObject);
+        return resultModel;
     }
 
     public void serializeFile(MetaDataObject metaDataObject, ParserFile parserFile) throws BaseExcelParserException {
-//        (new TextParser(this.pathFile
         this.wrapperExcel = new WrapperFileImpl(parserFile, metaDataObject);
         wrapperExcel.write();
     }
@@ -38,7 +42,7 @@ public final class DefaultSerializeDeserialize implements SerializeFile, DeSeria
         Object targetObject;
         targetObject = Utility.newInstanceFromType(typeResult);
         for (MetaDataObject metaData : metaDataObject.getMetaDataObjects()) {
-            CreateObjectFromMetaData readerField = CreateObjectFromMetaData.createReaderField(targetObject, metaData, wrapperExcel);
+            CreateObjectFromMetaData readerField = CreateObjectFromMetaData.createReaderField(targetObject, metaData, wrapperExcel, validationResult);
             readerField.read(metaData);
         }
         return targetObject;
