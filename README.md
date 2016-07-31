@@ -1,65 +1,48 @@
 # Excel-and-File-Parsing-with-anotation-
- Hi. Hello. This framework works with Excel file format Mtn.tnha second thing you do with Annvtatyvn a correct model and related marks and Framvvrk delivered to you.
+  Hello. This framework works with Excel and text file format. you do with Annotationn a correct model  and use ExcelManagerFactory to seriliaze and deserilize file.
+  
 
-package test;
+  
+public class MessageExcel {
+    @Sheet(name = "test")
 
-import ir.bmi.api.excelParser.annotation.sheet.Sheet;
-import ir.bmi.api.excelParser.annotation.validation.NotNullValidation;
-
-import java.util.ArrayList;
-import java.util.List;
-
-
+public class MessageExcel {
+    @Sheet(name = "test")
     public class MessageExcel {
-      @Sheet(name = "test")
-      private Header header;
-      @Sheet(name = "test1")
+    @Sheet(name = "test")
+    public class MessageExcel {
+    @Sheet(name = "test")
+    public class MessageExcel {
+    @Sheet(name = "test")public class MessageExcel {
+    @Sheet(name = "test")
+     private Header header;
+
+     @Sheet(name = "test1")
+
      private List<Body> message;
 
     public MessageExcel() {
-       this.header = new Header();
-       this.message = new ArrayList<Body>();
-   }
-   
-  public void setHeader(Header header) {
-       this.header = header;
+        this.header = new Header();
+        this.message = new ArrayList<Body>();
     }
 
-   public List<Body> getMessage() {
-       return message;
-   }
-   public void setMessage(List<Body> message) {
-       this.message = message;
+    public Header getHeader() {
+        return header;
     }
- }
 
-public class Header {
-  @NotNullValidation()
-  @ColorCell(blue = 100,green = 10,red = 250)
-  private String name;
-  @NotNullValidation()
-  @ColorCell(blue = 200,green = 150,red = 80)
-  private String family;
+    public void setHeader(Header header) {
+        this.header = header;
+    }
 
-  public Header() {
- }
+    public List<Body> getMessage() {
+        return message;
+    }
 
-  public String getName() {
-     return name;
-  }
+    public void setMessage(List<Body> message) {
+        this.message = message;
+    }
 
-  public void setName(String name) {
-      this.name = name;
-  }
 
-  public String getFamily() {
-       return family;
- }
-
- public void setFamily(String family) {
-     this.family = family;
-  }
-}
 
 after your entity ready you must write this code:
 
