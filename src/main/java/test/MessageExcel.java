@@ -11,20 +11,20 @@ import java.util.List;
  */
 public class MessageExcel {
     @Sheet(name = "test")
-    private List<Header> header;
+    private Header header;
     @Sheet(name = "test1")
     private List<Body> message;
 
     public MessageExcel() {
-        this.header = new ArrayList<Header>();
+        this.header = new Header();
         this.message = new ArrayList<Body>();
     }
-//
-    public List<Header> getHeader() {
+
+    public Header getHeader() {
         return header;
     }
 
-    public void setHeader(ArrayList<Header> header) {
+    public void setHeader(Header header) {
         this.header = header;
     }
 
@@ -42,10 +42,10 @@ public class MessageExcel {
         stringBuilder.append(System.getProperty("line.separator"));
         stringBuilder.append("************sheet 1**************");
         stringBuilder.append(System.getProperty("line.separator"));
-        for (Header h : header) {
-            stringBuilder.append(h.getName() + "              " + h.getFamily());
+//        for (Header h : header) {
+            stringBuilder.append(header.getName() + "              " + header.getFamily());
             stringBuilder.append(System.getProperty("line.separator"));
-        }
+//        }
         stringBuilder.append("************sheet2******************");
         stringBuilder.append(System.getProperty("line.separator"));
         for(Body body:message){

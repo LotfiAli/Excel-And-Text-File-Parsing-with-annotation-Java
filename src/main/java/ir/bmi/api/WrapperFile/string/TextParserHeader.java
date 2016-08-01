@@ -11,31 +11,31 @@ import java.io.IOException;
 /**
  * Created by alotfi on 6/7/2016.
  */
-public class StringParserHeader implements ParserHeader {
+public class TextParserHeader implements ParserHeader {
 
     private MetaDataObject metaDataObjects;
     private BufferedReader contentFile;
     private StringBuilder result;
 
-    public StringParserHeader(BufferedReader contentFile) {
+    public TextParserHeader(BufferedReader contentFile) {
         this.contentFile = contentFile;
     }
 
-    public StringParserHeader(StringBuilder contentFile, MetaDataObject metaDataObjects) {
+    public TextParserHeader(StringBuilder contentFile, MetaDataObject metaDataObjects) {
         this.result = contentFile;
         this.metaDataObjects = metaDataObjects;
     }
 
     public WrapperHeader getHeader() throws IOExcelException {
         try {
-            return new WrapperHeader(new StringParserRow(contentFile.readLine(), 0));
+            return new WrapperHeader(new TextParserRow(contentFile.readLine(), 0));
         } catch (IOException e) {
             throw new IOExcelException("error in parse body", e);
         }
     }
 
     public void create() {
-        StringParserRow parserRow = new StringParserRow(result, this.metaDataObjects);
+        TextParserRow parserRow = new TextParserRow(result, this.metaDataObjects);
         parserRow.create();
         result.append(System.getProperty("line.separator"));
     }

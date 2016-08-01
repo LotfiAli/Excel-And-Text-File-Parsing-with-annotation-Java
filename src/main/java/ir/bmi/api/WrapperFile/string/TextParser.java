@@ -6,24 +6,51 @@ import ir.bmi.api.excelParser.exception.IOExcelException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserFile;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by alotfi on 6/5/2016.
  */
-public class StringParser implements ParserFile {
+public class TextParser implements ParserFile {
 
     public static final int ALL_CONTENT = 0;
     private List<WrapperSheet> wrapperSheets = new ArrayList<WrapperSheet>();
     private ArrayList<String> salary;
+    private String fileName;
 
-    public StringParser(ArrayList<String> data) {
+    public TextParser(String fileName) throws BaseExcelParserException, IOException {
+        this.fileName = fileName;
+    }
+
+    private void readContentFile() throws BaseExcelParserException, IOException {
+        ArrayList<String> lineFiles = new ArrayList<String>();
+        BufferedReader bufferedReader = readFile(fileName);
+        String sCurrentLine;
+
+        while ((sCurrentLine = bufferedReader.readLine()) != null) {
+            lineFiles.add(sCurrentLine);
+        }
+        this.salary = lineFiles;
+    }
+
+    public TextParser(ArrayList<String> data) {
         this.salary = data;
+    }
+
+
+    public static TextParser createSerializeStringParser(String fileName) throws BaseExcelParserException, IOException {
+        return new TextParser(fileName);
+    }
+
+    public TextParser() {
+    }
+
+    public static TextParser createDeSerializeParser(String fileName) throws BaseExcelParserException, IOException {
+        TextParser stringParser = new TextParser(fileName);
+        stringParser.readContentFile();
+        return stringParser;
     }
 
     private List<String> getDataSheet(ArrayList<String> contentFile, int count) {
@@ -36,10 +63,10 @@ public class StringParser implements ParserFile {
     }
 
     public List<WrapperSheet> parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
-        int rowIndex=0;
+        int rowIndex = 0;
         for (MetaDataObject metaData : metaDataObject.getMetaDataObjects()) {
-            StringParserSheet parserSheet = new StringParserSheet(getDataSheet(salary, metaData.getCountColumn()),rowIndex);
-            rowIndex+=metaData.getCountColumn();
+            TextParserSheet parserSheet = new TextParserSheet(getDataSheet(salary, metaData.getCountColumn()), rowIndex);
+            rowIndex += metaData.getCountColumn();
             parserSheet.setSheetName(metaData.getSheetName());
             wrapperSheets.add(new WrapperSheet(parserSheet));
         }
@@ -49,18 +76,17 @@ public class StringParser implements ParserFile {
     public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
         StringBuilder contentFile = new StringBuilder();
         for (MetaDataObject metaData : metaDataObject.getMetaDataObjects()) {
-            StringParserSheet parserSheet = new StringParserSheet(contentFile, metaData);
+            TextParserSheet parserSheet = new TextParserSheet(contentFile, metaData);
             parserSheet.create();
         }
         createFile(contentFile.toString());
-
     }
 
     private void createFile(String content) throws IOExcelException {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
-            File file = new File(content);
+            File file = new File(this.fileName);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -74,5 +100,14 @@ public class StringParser implements ParserFile {
         }
     }
 
+    private BufferedReader readFile(String pathFile) throws BaseExcelParserException {
+        FileInputStream fis = null;
+        try {
+            return new BufferedReader(new FileReader(pathFile));
+
+        } catch (Exception e) {
+            throw new IOExcelException("error in read file excel from path" + pathFile, e);
+        }
+    }
 
 }

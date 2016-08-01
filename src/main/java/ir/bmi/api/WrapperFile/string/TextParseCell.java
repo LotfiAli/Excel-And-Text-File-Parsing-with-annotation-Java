@@ -6,16 +6,16 @@ import ir.bmi.api.excelParser.parserWrapper.ParserCell;
 /**
  * Created by alotfi on 6/6/2016.
  */
-public class StringParseCell implements ParserCell {
+public class TextParseCell implements ParserCell {
     private String value;
     private StringBuilder row;
     private MetaDataObject metaDataObject;
 
-    public StringParseCell(String cell) {
+    public TextParseCell(String cell) {
         this.value = cell;
     }
 
-    public StringParseCell(StringBuilder row, MetaDataObject metaDataObject) {
+    public TextParseCell(StringBuilder row, MetaDataObject metaDataObject) {
         this.row = row;
         this.metaDataObject = metaDataObject;
     }

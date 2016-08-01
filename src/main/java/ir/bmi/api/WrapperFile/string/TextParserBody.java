@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by alotfi on 6/6/2016.
  */
-public class StringParserBody implements ParserBody {
+public class TextParserBody implements ParserBody {
 
     private List<MetaDataObject> metaDataObjects;
     private List<String> contentFile;
@@ -19,12 +19,12 @@ public class StringParserBody implements ParserBody {
     private StringBuilder result;
 
 
-    public StringParserBody(List<String> contentFile, int indx) {
+    public TextParserBody(List<String> contentFile, int indx) {
         this.contentFile = contentFile;
         this.index = indx;
     }
 
-    public StringParserBody(StringBuilder contentFile, List<MetaDataObject> metaDataObjects) {
+    public TextParserBody(StringBuilder contentFile, List<MetaDataObject> metaDataObjects) {
         this.result = contentFile;
         this.metaDataObjects = metaDataObjects;
     }
@@ -35,14 +35,14 @@ public class StringParserBody implements ParserBody {
 //            contentFile.readLine();
         for (String sCurrentLine : contentFile) {
             rowNumber++;
-            bodyRows.add(new WrapperRow(new StringParserRow(sCurrentLine, rowNumber)));
+            bodyRows.add(new WrapperRow(new TextParserRow(sCurrentLine, rowNumber)));
         }
         return bodyRows;
     }
 
     public void create() {
         for (MetaDataObject rows : metaDataObjects) {
-            StringParserRow parserRow = new StringParserRow(result, rows);
+            TextParserRow parserRow = new TextParserRow(result, rows);
             parserRow.create();
             result.append(System.getProperty("line.separator"));
         }

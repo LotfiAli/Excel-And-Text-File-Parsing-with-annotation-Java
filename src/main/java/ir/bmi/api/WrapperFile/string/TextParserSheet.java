@@ -11,7 +11,8 @@ import java.util.List;
 /**
  * Created by alotfi on 6/6/2016.
  */
-public class StringParserSheet implements ParserSheet {
+public class TextParserSheet implements ParserSheet {
+
     private List<String> sheet;
     private int index;
     private StringBuilder contentFile;
@@ -19,20 +20,20 @@ public class StringParserSheet implements ParserSheet {
     private String sheetName;
     private WrapperBody wrapperBody;
 
-    public StringParserSheet(StringBuilder contentFile, MetaDataObject metaDataObject) {
+    public TextParserSheet(StringBuilder contentFile, MetaDataObject metaDataObject) {
         this.contentFile = contentFile;
         this.metaDataObject = metaDataObject;
         this.sheetName = metaDataObject.getSheetName();
     }
 
-    public StringParserSheet(List<String> sheet,int index) {
+    public TextParserSheet(List<String> sheet, int index) {
         this.sheet = sheet;
         this.index = index;
     }
 
     public WrapperHeader getHeader() throws IOExcelException {
 //        try {
-//            return new WrapperHeader(new StringParserRow(sheet.readLine()));
+//            return new WrapperHeader(new TextParserRow(sheet.readLine()));
 //        } catch (IOException e) {
 //            throw new IOExcelException("error in read text File", e);
 //        }
@@ -40,7 +41,7 @@ public class StringParserSheet implements ParserSheet {
     }
 
     public WrapperBody getBody() throws IOExcelException {
-        wrapperBody = new WrapperBody(new StringParserBody(sheet,index));
+        wrapperBody = new WrapperBody(new TextParserBody(sheet,index));
         return wrapperBody;
     }
 
@@ -54,10 +55,10 @@ public class StringParserSheet implements ParserSheet {
     }
 
     public void create() {
-        StringParserBody parserBody = new StringParserBody(contentFile, metaDataObject.getMetaDataObjects());
+        TextParserBody parserBody = new TextParserBody(contentFile, metaDataObject.getMetaDataObjects());
         parserBody.create();
 
-//        StringParserHeader textParserHeader=new StringParserHeader(contentFile,metaDataObject.getMetaDataObjects().get(0));
+//        TextParserHeader textParserHeader=new TextParserHeader(contentFile,metaDataObject.getMetaDataObjects().get(0));
 //        textParserHeader.create();
     }
 }

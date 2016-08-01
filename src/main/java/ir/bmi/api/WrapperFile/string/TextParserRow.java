@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by alotfi on 6/6/2016.
  */
-public class StringParserRow implements ParserRow {
+public class TextParserRow implements ParserRow {
 
     List<WrapperCell> cellWrappers;
     private String row;
@@ -18,13 +18,13 @@ public class StringParserRow implements ParserRow {
     private StringBuilder spreadsheet;
     private int rowNumber;
 
-    public StringParserRow(String row, int index) {
+    public TextParserRow(String row, int index) {
         this.row = row;
         this.rowNumber = index;
     }
 
 
-    public StringParserRow(StringBuilder spreadsheet, MetaDataObject metaDataObject) {
+    public TextParserRow(StringBuilder spreadsheet, MetaDataObject metaDataObject) {
         this.spreadsheet = spreadsheet;
         this.metaDataObject = metaDataObject;
     }
@@ -33,7 +33,7 @@ public class StringParserRow implements ParserRow {
         cellWrappers = new ArrayList<WrapperCell>();
         String[] cellIterator = row.split(",");
         for (String cellValue : cellIterator) {
-            cellWrappers.add(new WrapperCell(new StringParseCell(cellValue)));
+            cellWrappers.add(new WrapperCell(new TextParseCell(cellValue)));
         }
         return cellWrappers;
     }
@@ -44,7 +44,7 @@ public class StringParserRow implements ParserRow {
         List<MetaDataObject> metaDataObjects = metaDataObject.getMetaDataObjects();
         for (int i = 0; i <= metaDataObjects.size() - 1; i++) {
             MetaDataObject cellValue = metaDataObjects.get(i);
-            StringParseCell cell = new StringParseCell(row, cellValue);
+            TextParseCell cell = new TextParseCell(row, cellValue);
             cell.create();
             if (i < metaDataObjects.size() - 1)
                 row.append(",");
