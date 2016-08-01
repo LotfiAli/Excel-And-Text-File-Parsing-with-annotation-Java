@@ -1,4 +1,4 @@
-# Excel-and-File-Parsing-with-anotation-
+# Excel And Text File Parsing With Annotation-
   Hello. This framework works with Excel and text file format. you do with Annotationn a correct model  and use ExcelManagerFactory to seriliaze and deserilize file.
 
 
