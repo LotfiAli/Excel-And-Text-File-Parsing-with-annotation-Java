@@ -41,15 +41,6 @@ public class TextParserSheet implements ParserSheet {
 
     }
 
-//    public WrapperHeader getHeader() throws IOExcelException {
-//        try {
-//            return new WrapperHeader(new TextParserRow(sheet.readLine()));
-//        } catch (IOException e) {
-//            throw new IOExcelException("error in read text File", e);
-//        }
-//        return null;
-//    }
-
     public ParserBody getBody() throws IOExcelException {
         return wrapperBody;
     }
@@ -62,14 +53,6 @@ public class TextParserSheet implements ParserSheet {
         this.sheetName = sheetName;
     }
 
-//    public void create() {
-//        TextParserBody parserBody = new TextParserBody(contentFile, metaDataObject.getMetaDataObjects());
-//        parserBody.create();
-//
-//        TextParserHeader textParserHeader=new TextParserHeader(contentFile,metaDataObject.getMetaDataObjects().get(0));
-//        textParserHeader.create();
-//    }
-
     public String getSheetName() {
         return sheetName;
     }
@@ -77,8 +60,6 @@ public class TextParserSheet implements ParserSheet {
     public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
         wrapperBody = new TextParserBody(sheet, index);
         wrapperBody.parse(metaDataObject);
-//        return wrapperBody;
-
     }
 
     public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {

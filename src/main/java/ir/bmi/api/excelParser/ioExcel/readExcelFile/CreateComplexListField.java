@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
  */
 public class CreateComplexListField extends CreateObjectFromMetaData {
 
-    public static final String ADD = "add";
+//    public static final String ADD = "add";
 
     public CreateComplexListField(Object instance, ParserFile wrapperExcel, ValidationResult validationResult) {
         super(instance, wrapperExcel, validationResult);

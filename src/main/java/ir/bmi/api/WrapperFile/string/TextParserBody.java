@@ -32,25 +32,6 @@ public class TextParserBody implements ParserBody {
         this.metaDataObjects = metaDataObjects;
     }
 
-//    public List<WrapperRow> getBody() throws IOExcelException {
-
-//        int rowNumber = this.index;
-////            contentFile.readLine();
-//        for (String sCurrentLine : contentFile) {
-//            rowNumber++;
-//            bodyRows.add(new WrapperRow(new TextParserRow(sCurrentLine, rowNumber)));
-//        }
-//        return bodyRows;
-//    }
-
-//    public void create() {
-////        for (MetaDataObject rows : metaDataObjects) {
-////            TextParserRow parserRow = new TextParserRow(result, rows);
-////            parserRow.create();
-////            result.append(System.getProperty("line.separator"));
-////        }
-//    }
-
     public ParserRow getRowBodyByIndex(int i) {
         return bodyRows.get(i);
     }
@@ -62,7 +43,6 @@ public class TextParserBody implements ParserBody {
     public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
         int rowNumber = this.index;
         int i = 0;
-//            contentFile.readLine();
         for (String sCurrentLine : contentFile) {
             rowNumber++;
             TextParserRow parserRow = new TextParserRow(sCurrentLine, rowNumber);
@@ -70,8 +50,6 @@ public class TextParserBody implements ParserBody {
             bodyRows.add(parserRow);
             i++;
         }
-//        return bodyRows;
-
     }
 
     public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {

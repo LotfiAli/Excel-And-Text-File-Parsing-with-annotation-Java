@@ -24,8 +24,6 @@ public class Launcher {
         excelManager1.serialize(message.getResultModel());
 
         System.out.println(message.getResultModel().toString());
-
-
     }
 
     private static void ExcelCall() throws Exception {

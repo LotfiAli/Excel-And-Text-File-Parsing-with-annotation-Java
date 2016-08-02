@@ -36,12 +36,6 @@ public class ExcelParser implements ParserFile {
     public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
         XSSFWorkbook workbook = new XSSFWorkbook();
         int i = 0;
-//        for(ExcelParserSheet excelParserSheet:wrapperSheetses){
-//            excelParserSheet.setXssfWorkbook(workbook);
-//            excelParserSheet.create(metaDataObject.getWithIndex(i));
-//            i++;
-//        }
-
         for (MetaDataObject metaData : metaDataObject.getMetaDataObjects()) {
             ExcelParserSheet parserSheet = new ExcelParserSheet(workbook, metaData);
             parserSheet.create(metaDataObject.getWithIndex(i));

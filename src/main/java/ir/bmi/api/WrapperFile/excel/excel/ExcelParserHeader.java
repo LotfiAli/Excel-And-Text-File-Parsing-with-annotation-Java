@@ -25,10 +25,6 @@ public class ExcelParserHeader implements ParserHeader {
         this.metaDataObjects = metaDataObjects;
     }
 
-    public ExcelParserHeader(Row row) {
-        this.row = row;
-    }
-
     public ParserHeader getHeader() {
 //        Iterator<Row> rowIterator = sheet.iterator();
 //        if (rowIterator == null) {

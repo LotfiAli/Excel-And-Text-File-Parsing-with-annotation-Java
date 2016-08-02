@@ -35,33 +35,11 @@ public class ExcelParserRow implements ParserRow {
         this.metaDataObject = metaDataObject;
     }
 
-//    public List<WrapperCell> getCells() {
-//        cellWrappers = new ArrayList<WrapperCell>();
-//        Iterator<Cell> cellIterator = row.iterator();
-//        while (cellIterator.hasNext()) {
-//            Cell cell = cellIterator.next();
-//            cellWrappers.add(new WrapperCell(new ir.bmi.api.WrapperFile.excel.ExcelParseCell(cell)));
-//        }
-//        return cellWrappers;
-//    }
-
-//    public void create() {
-//        cellWrappers = new ArrayList<WrapperCell>();
-//        Row row = this.spreadsheet.createRow(this.index);
-//        int point = 0;
-//        for (MetaDataObject cellValue : metaDataObject.getMetaDataObjects()) {
-//            ir.bmi.api.WrapperFile.excel.ExcelParseCell cell = new ir.bmi.api.WrapperFile.excel.ExcelParseCell(xssfWorkbook, row, cellValue, false, point++);
-//            cell.create();
-//        }
-
-//    }
-
-    //    @Override
     public int rowNumber() {
         return 0;
     }
 
-    //    @Override
+
     public Object getRowValueString() {
         String result = "";
         for (ExcelParseCell wrapperCell : cellWrappers) {
@@ -97,7 +75,6 @@ public class ExcelParserRow implements ParserRow {
 
     public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
 
-//        cellWrappers = new ArrayList<WrapperCell>();
         Row row = this.sheet.createRow(this.index);
         int point = 0;
         for (MetaDataObject metaObject : metaDataObject.getMetaDataObjects()) {
@@ -107,12 +84,4 @@ public class ExcelParserRow implements ParserRow {
 
         }
     }
-
-//    public XSSFSheet getSheet() {
-//        return sheet;
-//    }
-//
-//    public void setSheet(XSSFSheet sheet) {
-//        this.sheet = sheet;
-//    }
 }

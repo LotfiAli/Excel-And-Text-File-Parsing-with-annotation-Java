@@ -37,7 +37,6 @@ public class ComplexTypeParser extends BaseComplexParser {
 
     @Override
     protected ArrayList<Object> getValueObject(Object targetObject, Field parentFiled) throws BaseExcelParserException {
-
         Object listObject = Utility.getObjectFromField(parentFiled, targetObject);
         try {
             ArrayList<Object> objectArray = new ArrayList<Object>();
@@ -48,5 +47,4 @@ public class ComplexTypeParser extends BaseComplexParser {
         }
 
     }
-
 }

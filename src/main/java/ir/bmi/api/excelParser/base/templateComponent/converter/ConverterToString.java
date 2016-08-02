@@ -5,8 +5,7 @@ package ir.bmi.api.excelParser.base.templateComponent.converter;
  */
 public class ConverterToString extends ConverterBase {
     @Override
-    protected Object convertToObject(Object value)
-    {
+    protected Object convertToObject(Object value) {
         return value.toString();
     }
 }

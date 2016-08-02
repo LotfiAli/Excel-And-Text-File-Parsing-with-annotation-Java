@@ -32,25 +32,6 @@ public class ExcelParserBody implements ParserBody {
         this.metaDataObjects = metaDataObjects;
     }
 
-//    public List<WrapperRow> getBody() {
-//        List<WrapperRow> bodyRows = new ArrayList<WrapperRow>();
-//        Iterator<Row> rowIterator = sheet.iterator();
-//        rowIterator.next();//For Header Sheet
-//        while (rowIterator.hasNext())
-//            bodyRows.add(new WrapperRow(new ExcelParserRow(rowIterator.next())));
-//        return bodyRows;
-//    }
-
-//    public void create() {
-////        List<WrapperRow> bodyRows = new ArrayList<WrapperRow>();
-//        int index = 1;
-//        for (MetaDataObject rows : metaDataObjects) {
-//            ExcelParserRow parserRow = new ExcelParserRow(xssfWorkbook, sheet, rows, index++);
-//            parserRow.create();
-////            bodyRows.add(new WrapperRow(parserRow));
-//        }
-//    }
-
     public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
         Iterator<Row> rowIterator = sheet.iterator();
         rowIterator.next();//For Header Sheet
@@ -72,12 +53,6 @@ public class ExcelParserBody implements ParserBody {
             parserRow.create(metaData);
             bodyRows.add(parserRow);
         }
-
-//        for (ParserRow rows : bodyRows) {
-//            ExcelParserRow rowCast=(ExcelParserRow)rows;
-//            rowCast.setSheet(sheet);
-//            rowCast.create(metaDataObject);
-//        }
     }
 
     public ParserRow getRowBodyByIndex(int i) {
@@ -88,11 +63,5 @@ public class ExcelParserBody implements ParserBody {
         return bodyRows;
     }
 
-//    public XSSFSheet getSheet() {
-//        return sheet;
-//    }
-//
-//    public void setSheet(XSSFSheet sheet) {
-//        this.sheet = sheet;
-//    }
+
 }

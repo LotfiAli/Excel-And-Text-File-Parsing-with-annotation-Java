@@ -41,6 +41,4 @@ public class CreateComplexField extends CreateObjectFromMetaData {
         }
 
     }
-
-
 }

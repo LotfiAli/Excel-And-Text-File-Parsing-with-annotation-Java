@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class TextParserRow implements ParserRow {
 
-    List<ParserCell> cellWrappers=new ArrayList<ParserCell>();
+    List<ParserCell> cellWrappers = new ArrayList<ParserCell>();
     private String row;
     private MetaDataObject metaDataObject;
     private StringBuilder spreadsheet;
@@ -29,30 +29,6 @@ public class TextParserRow implements ParserRow {
         this.spreadsheet = spreadsheet;
         this.metaDataObject = metaDataObject;
     }
-
-//    public List<ParserCell> getCells() {
-//        cellWrappers = new ArrayList<ParserCell>();
-//        String[] cellIterator = row.split(",");
-//        for (String cellValue : cellIterator) {
-//            cellWrappers.add(new TextParseCell(cellValue));
-//        }
-//        return cellWrappers;
-//    }
-
-//    public void create() throws BaseExcelParserException {
-//        cellWrappers = new ArrayList<ParserCell>();
-//        StringBuilder row = new StringBuilder();
-//        List<MetaDataObject> metaDataObjects = metaDataObject.getMetaDataObjects();
-//        for (int i = 0; i <= metaDataObjects.size() - 1; i++) {
-//            MetaDataObject metaRow = metaDataObjects.get(i);
-//            TextParseCell cell = new TextParseCell(row);
-//            cell.create(metaRow);
-//            if (i < metaDataObjects.size() - 1)
-//                row.append(",");
-//        }
-//        spreadsheet.append(row.toString());
-//    }
-
 
     public int rowNumber() {
         return rowNumber;

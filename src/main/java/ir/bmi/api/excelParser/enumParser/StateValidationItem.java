@@ -4,6 +4,7 @@ package ir.bmi.api.excelParser.enumParser;
  * Created by alotfi on 7/19/2016.
  */
 public enum StateValidationItem {
+
     VALIDATION_ERROR(1000),
     CONVERTER_ERROR(1001),
     READ_FIELD_ERROR(1002);

@@ -12,6 +12,7 @@ import java.io.IOException;
  * Created by alotfi on 5/24/2016.
  */
 public final class ExcelManagerFactory {
+
     public static ParserManager getExcelParserManager(String pathFile, Class typeClass) {
         return new ParserManagerImpl(typeClass, new ExcelParser(pathFile));
     }

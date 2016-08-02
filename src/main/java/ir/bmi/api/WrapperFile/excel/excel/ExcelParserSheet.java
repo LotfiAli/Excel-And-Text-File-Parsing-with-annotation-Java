@@ -28,12 +28,6 @@ public class ExcelParserSheet implements ParserSheet {
         this.sheet = sheet;
     }
 
-//    public WrapperBody getBody() throws IOExcelException {
-//
-//        wrapperBody = new WrapperBody(new ExcelParserBody(sheet));
-//        return wrapperBody;
-//    }
-
     public ExcelParserBody getBody() throws IOExcelException {
         return wrapperBody;
     }
@@ -42,37 +36,9 @@ public class ExcelParserSheet implements ParserSheet {
         return sheet.getSheetName();
     }
 
-//    public void create() throws IOExcelException {
-//        sheet = xssfWorkbook.createSheet(this.sheetName);
-//        createHeader();
-//        ExcelParserBody parserBody = createBody();
-//        wrapperBody = new WrapperBody(parserBody);
-//    }
-
     public String getSheetName() {
         return sheet.getSheetName();
     }
-
-//    private ExcelParserBody createBody() {
-//        ExcelParserBody parserBody = new ExcelParserBody(xssfWorkbook, sheet, metaDataObject.getMetaDataObjects());
-//        parserBody.create();
-//        return parserBody;
-//    }
-
-    private void createHeader() {
-        ExcelParserHeader parserRow = new ExcelParserHeader(xssfWorkbook, sheet, metaDataObject.getMetaDataObjects());
-        parserRow.create();
-//        wrapperHeader = new WrapperRow(parserRow);
-    }
-
-//    public WrapperHeader getHeader() {
-//        Iterator<Row> rowIterator = sheet.iterator();
-//        if (rowIterator == null) {
-//            throw new IllegalArgumentException();
-//        }
-//        return new WrapperHeader(new ExcelParserRow(rowIterator.next()));
-//    }
-
 
     public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
         wrapperBody = new ExcelParserBody(sheet);
@@ -88,9 +54,6 @@ public class ExcelParserSheet implements ParserSheet {
         wrapperBody = new ExcelParserBody(xssfWorkbook, sheet, metaDataObject.getMetaDataObjects());
         wrapperBody.create(metaDataObject);
 
-//        sheet = xssfWorkbook.createSheet(this.getSheetName());
-//        wrapperBody.setSheet(sheet);
-//        wrapperBody.create(metaDataObject);
     }
 
     public XSSFWorkbook getXssfWorkbook() {

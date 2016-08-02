@@ -6,6 +6,7 @@ package ir.bmi.api.excelParser.base.templateComponent.converter;
 public class ConvertToLong extends ConverterBase {
     @Override
     protected Object convertToObject(Object value) {
+
         return Double.parseDouble(value.toString());
     }
 }

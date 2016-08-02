@@ -17,7 +17,6 @@ public class TextParseCell implements ParserCell {
 
     public TextParseCell(StringBuilder row) {
         this.row = row;
-
     }
 
     public Object getCellValue() {
