@@ -27,7 +27,6 @@ public class CreateComplexListField extends CreateObjectFromMetaData {
     @Override
     protected void writeField(MetaDataObject metaDataObject, Object obj) throws BaseExcelParserException {
 //        Object targetObject = Utility.getObjectFromField(metaDataObject.getField(), obj);
-
     }
 
     protected void readField(ParserBody body, MetaDataObject metaDate) {

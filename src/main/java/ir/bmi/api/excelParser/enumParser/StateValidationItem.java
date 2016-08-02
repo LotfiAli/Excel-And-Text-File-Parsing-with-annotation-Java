@@ -21,14 +21,14 @@ public enum StateValidationItem {
     public String getTextError(String filed) {
         String attachToText="";
         if (filed!=null)
-            attachToText+="در فیلد "+filed;
+            attachToText+="on field "+filed;
         switch (errorCode) {
             case 1000:
-                return "دمقادیر را پر کنید "+ attachToText;
+                return "Value not be empty"+ attachToText;
             case 1001:
-                return "خطا در تبدیل دادها "+attachToText;
+                return "convert error Data"+attachToText;
             case 1002:
-                return "مشکل در خوانایی فایل"+attachToText;
+                return "error  in read data"+attachToText;
 
         }
         return null;

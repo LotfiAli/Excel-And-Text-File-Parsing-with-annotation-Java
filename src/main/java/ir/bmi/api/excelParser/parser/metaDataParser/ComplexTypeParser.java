@@ -49,6 +49,4 @@ public class ComplexTypeParser extends BaseComplexParser {
 
     }
 
-
-
 }
