@@ -1,5 +1,6 @@
-package ir.bmi.api.WrapperFile.excel;
+package ir.bmi.api.WrapperFile.excel.excel;
 
+import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -40,8 +41,28 @@ public class ExcelParseCell implements ParserCell {
             return cell.getNumericCellValue();
         return cell.getStringCellValue();
     }
+//
+//    public void create() {
+//        Cell cell = row.createCell(index);
+//        setColor(cell);
+//        if (readHeader)
+//            cell.setCellValue(metaDataObject.getName());
+//        else
+//            cell.setCellValue(metaDataObject.getValuePrimitive().toString());
+//    }
 
-    public void create() {
+    private void setColor(Cell cell) {
+        XSSFCellStyle style = xssfWorkbook.createCellStyle();
+        style.setFillForegroundColor(new XSSFColor(new java.awt.Color(metaDataObject.getRed(), metaDataObject.getGreen(), metaDataObject.getBlue())));
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        cell.setCellStyle(style);
+    }
+
+    public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
+
+    }
+
+    public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
         Cell cell = row.createCell(index);
         setColor(cell);
         if (readHeader)
@@ -50,10 +71,11 @@ public class ExcelParseCell implements ParserCell {
             cell.setCellValue(metaDataObject.getValuePrimitive().toString());
     }
 
-    private void setColor(Cell cell) {
-        XSSFCellStyle style = xssfWorkbook.createCellStyle();
-        style.setFillForegroundColor(new XSSFColor(new java.awt.Color(metaDataObject.getRed(), metaDataObject.getGreen(), metaDataObject.getBlue())));
-        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-        cell.setCellStyle(style);
+    public Row getRow() {
+        return row;
+    }
+
+    public void setRow(Row row) {
+        this.row = row;
     }
 }

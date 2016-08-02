@@ -192,4 +192,8 @@ public class MetaDataObject {
     public void setDescriptionColumn(String descriptionColumn) {
         this.descriptionColumn = descriptionColumn;
     }
+
+    public MetaDataObject getWithIndex(int i){
+        return metaDataObjects.get(i);
+    }
 }

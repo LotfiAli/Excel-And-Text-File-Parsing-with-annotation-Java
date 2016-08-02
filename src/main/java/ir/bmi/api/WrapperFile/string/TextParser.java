@@ -1,10 +1,11 @@
 package ir.bmi.api.WrapperFile.string;
 
-import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperSheet;
+
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.exception.IOExcelException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserFile;
+import ir.bmi.api.excelParser.parserWrapper.ParserSheet;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 public class TextParser implements ParserFile {
 
     public static final int ALL_CONTENT = 0;
-    private List<WrapperSheet> wrapperSheets = new ArrayList<WrapperSheet>();
+    private List<ParserSheet> wrapperSheetses = new ArrayList<ParserSheet>();
     private ArrayList<String> salary;
     private String fileName;
 
@@ -62,22 +63,23 @@ public class TextParser implements ParserFile {
         return resultList;
     }
 
-    public List<WrapperSheet> parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
+    public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
         int rowIndex = 0;
         for (MetaDataObject metaData : metaDataObject.getMetaDataObjects()) {
             TextParserSheet parserSheet = new TextParserSheet(getDataSheet(salary, metaData.getCountColumn()), rowIndex);
             rowIndex += metaData.getCountColumn();
             parserSheet.setSheetName(metaData.getSheetName());
-            wrapperSheets.add(new WrapperSheet(parserSheet));
+            parserSheet.parse(metaDataObject);
+            wrapperSheetses.add(parserSheet);
         }
-        return wrapperSheets;
+
     }
 
     public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
         StringBuilder contentFile = new StringBuilder();
         for (MetaDataObject metaData : metaDataObject.getMetaDataObjects()) {
             TextParserSheet parserSheet = new TextParserSheet(contentFile, metaData);
-            parserSheet.create();
+            parserSheet.create(metaData);
         }
         createFile(contentFile.toString());
     }
@@ -110,4 +112,11 @@ public class TextParser implements ParserFile {
         }
     }
 
+    public ParserSheet getSheetByName(String sheetName) {
+        for (ParserSheet wrapperSheet : wrapperSheetses) {
+            if (wrapperSheet.getName().equals(sheetName))
+                return wrapperSheet;
+        }
+        throw new IllegalArgumentException();
+    }
 }

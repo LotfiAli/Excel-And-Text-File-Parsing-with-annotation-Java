@@ -1,6 +1,5 @@
 package ir.bmi.api.excelParser.parserWrapper;
 
-import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperHeader;
 import ir.bmi.api.excelParser.exception.IOExcelException;
 
 import java.io.IOException;
@@ -8,7 +7,7 @@ import java.io.IOException;
 /**
  * Created by alotfi on 6/7/2016.
  */
-public interface ParserHeader {
-    WrapperHeader getHeader() throws IOExcelException;
-    void create();
+public interface ParserHeader extends ParserComponent {
+//    ParserHeader getHeader() throws IOExcelException;
+//    void create();
 }

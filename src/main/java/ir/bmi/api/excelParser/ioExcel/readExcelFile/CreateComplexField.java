@@ -1,10 +1,11 @@
 package ir.bmi.api.excelParser.ioExcel.readExcelFile;
 
-import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperBody;
-import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperFileImpl;
-import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperRow;
+
 import ir.bmi.api.excelParser.enumParser.StateValidationItem;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
+import ir.bmi.api.excelParser.parserWrapper.ParserBody;
+import ir.bmi.api.excelParser.parserWrapper.ParserFile;
+import ir.bmi.api.excelParser.parserWrapper.ParserRow;
 import ir.bmi.api.excelParser.reflection.Utility;
 import ir.bmi.api.excelParser.validation.ValidationResult;
 import ir.bmi.api.excelParser.validation.ValidationResultItem;
@@ -17,7 +18,7 @@ import java.lang.reflect.Field;
 public class CreateComplexField extends CreateObjectFromMetaData {
 
 
-    public CreateComplexField(Object instance, WrapperFileImpl wrapperExcel, ValidationResult validationResult) {
+    public CreateComplexField(Object instance, ParserFile wrapperExcel, ValidationResult validationResult) {
         super(instance, wrapperExcel, validationResult);
     }
 
@@ -27,8 +28,8 @@ public class CreateComplexField extends CreateObjectFromMetaData {
     }
 
     @Override
-    protected void readField(WrapperBody body, MetaDataObject metaDate) {
-        WrapperRow bodyRow = body.getRowBodyByIndex(0);
+    protected void readField(ParserBody body, MetaDataObject metaDate) {
+        ParserRow bodyRow = body.getRowBodyByIndex(0);
         Field objectField = metaDate.getField();
         objectField.setAccessible(true);
         Object selectObject = null;

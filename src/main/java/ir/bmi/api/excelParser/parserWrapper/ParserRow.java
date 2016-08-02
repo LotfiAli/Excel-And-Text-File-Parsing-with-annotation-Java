@@ -1,15 +1,20 @@
 package ir.bmi.api.excelParser.parserWrapper;
 
-import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperCell;
-
-import java.util.List;
+import ir.bmi.api.WrapperFile.excel.excel.ExcelParseCell;
 
 /**
  * Created by alotfi on 6/6/2016.
  */
-public interface ParserRow {
-    List<WrapperCell> getCells();
-    void create();
+public interface ParserRow extends ParserComponent {
+    //    List<WrapperCell> getCells();
+//    void create();
     int rowNumber();
+
     Object getRowValueString();
+
+    ParserCell getCellOfRowById(int i);
+
+    int getRowNumber();
+
+    String getRowData();
 }

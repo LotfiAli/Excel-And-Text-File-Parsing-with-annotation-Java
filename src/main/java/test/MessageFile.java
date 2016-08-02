@@ -47,8 +47,8 @@ public class MessageFile {
         stringBuilder.append("************sheet 1**************");
         stringBuilder.append(System.getProperty("line.separator"));
 //        for (Header h : header) {
-//            stringBuilder.append(h.getName() + "              " + h.getFamily());
-//            stringBuilder.append(System.getProperty("line.separator"));
+            stringBuilder.append(header.toString());
+            stringBuilder.append(System.getProperty("line.separator"));
 //        }
         stringBuilder.append("************sheet2******************");
         stringBuilder.append(System.getProperty("line.separator"));

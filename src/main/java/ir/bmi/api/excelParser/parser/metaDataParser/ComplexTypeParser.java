@@ -20,8 +20,6 @@ public class ComplexTypeParser extends BaseComplexParser {
     @Override
     public void ParserElement(MetaDataObject metaDataObject, Field field, Object targetObject) throws BaseExcelParserException {
         Class<?> type = field.getType();
-        ;
-//        Field[] fieldComplexObject = type.getDeclaredFields();
 
         MetaDataObject metaDataObjectComposite = parseElement(field);
         metaDataObjectComposite.setComplex(true);

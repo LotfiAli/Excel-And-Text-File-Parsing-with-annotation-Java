@@ -1,7 +1,8 @@
 package ir.bmi.api.WrapperFile.string;
 
-import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperCell;
+import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
+import ir.bmi.api.excelParser.parserWrapper.ParserCell;
 import ir.bmi.api.excelParser.parserWrapper.ParserRow;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class TextParserRow implements ParserRow {
 
-    List<WrapperCell> cellWrappers;
+    List<ParserCell> cellWrappers=new ArrayList<ParserCell>();
     private String row;
     private MetaDataObject metaDataObject;
     private StringBuilder spreadsheet;
@@ -29,30 +30,28 @@ public class TextParserRow implements ParserRow {
         this.metaDataObject = metaDataObject;
     }
 
-    public List<WrapperCell> getCells() {
-        cellWrappers = new ArrayList<WrapperCell>();
-        String[] cellIterator = row.split(",");
-        for (String cellValue : cellIterator) {
-            cellWrappers.add(new WrapperCell(new TextParseCell(cellValue)));
-        }
-        return cellWrappers;
-    }
+//    public List<ParserCell> getCells() {
+//        cellWrappers = new ArrayList<ParserCell>();
+//        String[] cellIterator = row.split(",");
+//        for (String cellValue : cellIterator) {
+//            cellWrappers.add(new TextParseCell(cellValue));
+//        }
+//        return cellWrappers;
+//    }
 
-    public void create() {
-        cellWrappers = new ArrayList<WrapperCell>();
-        StringBuilder row = new StringBuilder();
-        List<MetaDataObject> metaDataObjects = metaDataObject.getMetaDataObjects();
-        for (int i = 0; i <= metaDataObjects.size() - 1; i++) {
-            MetaDataObject cellValue = metaDataObjects.get(i);
-            TextParseCell cell = new TextParseCell(row, cellValue);
-            cell.create();
-            if (i < metaDataObjects.size() - 1)
-                row.append(",");
-        }
-        spreadsheet.append(row.toString());
-
-
-    }
+//    public void create() throws BaseExcelParserException {
+//        cellWrappers = new ArrayList<ParserCell>();
+//        StringBuilder row = new StringBuilder();
+//        List<MetaDataObject> metaDataObjects = metaDataObject.getMetaDataObjects();
+//        for (int i = 0; i <= metaDataObjects.size() - 1; i++) {
+//            MetaDataObject metaRow = metaDataObjects.get(i);
+//            TextParseCell cell = new TextParseCell(row);
+//            cell.create(metaRow);
+//            if (i < metaDataObjects.size() - 1)
+//                row.append(",");
+//        }
+//        spreadsheet.append(row.toString());
+//    }
 
 
     public int rowNumber() {
@@ -62,10 +61,44 @@ public class TextParserRow implements ParserRow {
 
     public Object getRowValueString() {
         String result = "";
-        for (WrapperCell wrapperCell : cellWrappers) {
+        for (ParserCell wrapperCell : cellWrappers) {
             result += wrapperCell.getCellValue().toString();
-            result +=",";
+            result += ",";
         }
         return result;
+    }
+
+    public ParserCell getCellOfRowById(int i) {
+        return cellWrappers.get(i);
+    }
+
+    public int getRowNumber() {
+        return 0;
+    }
+
+    public String getRowData() {
+        return null;
+    }
+
+    public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
+        cellWrappers = new ArrayList<ParserCell>();
+        String[] cellIterator = row.split(",");
+        for (String cellValue : cellIterator) {
+            cellWrappers.add(new TextParseCell(cellValue));
+        }
+    }
+
+    public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
+        cellWrappers = new ArrayList<ParserCell>();
+        StringBuilder row = new StringBuilder();
+        List<MetaDataObject> metaDataObjects = metaDataObject.getMetaDataObjects();
+        for (int i = 0; i <= metaDataObjects.size() - 1; i++) {
+            MetaDataObject metaRow = metaDataObjects.get(i);
+            TextParseCell cell = new TextParseCell(row);
+            cell.create(metaRow);
+            if (i < metaDataObjects.size() - 1)
+                row.append(",");
+        }
+        spreadsheet.append(row.toString());
     }
 }
