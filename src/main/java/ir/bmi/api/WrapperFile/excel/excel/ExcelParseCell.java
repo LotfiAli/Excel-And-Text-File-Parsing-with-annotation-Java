@@ -59,7 +59,6 @@ public class ExcelParseCell implements ParserCell {
     }
 
     public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
-
     }
 
     public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
