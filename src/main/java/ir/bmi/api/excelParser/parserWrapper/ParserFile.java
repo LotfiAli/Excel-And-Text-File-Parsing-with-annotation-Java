@@ -8,8 +8,5 @@ import ir.bmi.api.excelParser.parser.MetaDataObject;
  * Created by alotfi on 6/5/2016.
  */
 public interface ParserFile extends ParserComponent {
-
     ParserSheet getSheetByName(String sheetName);
-
-
 }

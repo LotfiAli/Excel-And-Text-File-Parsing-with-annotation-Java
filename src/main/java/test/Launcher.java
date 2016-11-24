@@ -12,7 +12,6 @@ public class Launcher {
     public static void main(String[] args) throws Exception {
         ExcelCall();
         callFile();
-
     }
 
     private static void callFile() throws Exception {
@@ -34,4 +33,6 @@ public class Launcher {
         ParserManager excelManagerSerialize = ExcelManagerFactory.getExcelParserManager("d:\\Book2.xlsx", MessageExcel.class);
         excelManagerSerialize.serialize(message.getResultModel());
     }
+
+
 }

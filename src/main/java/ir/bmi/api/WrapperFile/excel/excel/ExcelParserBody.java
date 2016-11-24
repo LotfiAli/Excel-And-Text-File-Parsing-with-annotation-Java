@@ -42,7 +42,6 @@ public class ExcelParserBody implements ParserBody {
             bodyRows.add(excelParserRow);
             i++;
         }
-
     }
 
     public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
