@@ -2,7 +2,7 @@ package ir.bmi.api.excelParser.base;
 
 
 import ir.bmi.api.WrapperFile.excel.excel.ExcelParser;
-import ir.bmi.api.WrapperFile.string.TextParser;
+import ir.bmi.api.WrapperFile.excel.text.TextParser;
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parserWrapper.ParserFile;
 

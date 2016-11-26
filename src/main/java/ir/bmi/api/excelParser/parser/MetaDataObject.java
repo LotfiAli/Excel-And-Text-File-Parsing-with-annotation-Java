@@ -1,7 +1,9 @@
 package ir.bmi.api.excelParser.parser;
 
+
+
 import ir.bmi.api.excelParser.base.templateComponent.converter.Converter;
-import ir.bmi.api.excelParser.base.templateComponent.validation.Validation;
+import ir.bmi.api.excelParser.base.templateComponent.validation.ExecuteValidation;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
@@ -14,7 +16,7 @@ import java.util.List;
 public class MetaDataObject {
 
     private TypeObject typeObject;
-    private List<Validation> validations;
+    private List<ExecuteValidation> aBooleen;
     private Converter converters;
     private Integer column;
     private String sheetName;
@@ -49,12 +51,12 @@ public class MetaDataObject {
         this.typeObject = typeObject;
     }
 
-    public List<Validation> getValidations() {
-        return validations;
+    public List<ExecuteValidation> getaBooleen() {
+        return aBooleen;
     }
 
-    public void setValidations(List<Validation> validations) {
-        this.validations = validations;
+    public void setaBooleen(List<ExecuteValidation> aBooleen) {
+        this.aBooleen = aBooleen;
     }
 
     public Converter getConverters() {
@@ -191,9 +193,5 @@ public class MetaDataObject {
 
     public void setDescriptionColumn(String descriptionColumn) {
         this.descriptionColumn = descriptionColumn;
-    }
-
-    public MetaDataObject getWithIndex(int i){
-        return metaDataObjects.get(i);
     }
 }

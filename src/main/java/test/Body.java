@@ -17,7 +17,7 @@ public class Body {
     @ConvertTo(convertTo = TypeObject.STRING)
     @NotNullValidation()
     private String family;
-    @ConvertTo(convertTo = TypeObject.INT)
+    @ConvertTo(convertTo = TypeObject.Long)
     private double old;
 
     public Body() {

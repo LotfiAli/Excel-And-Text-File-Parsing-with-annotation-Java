@@ -1,7 +1,7 @@
-package ir.bmi.api.WrapperFile.string;
+package ir.bmi.api.WrapperFile.excel.text;
 
 
-import ir.bmi.api.excelParser.exception.BaseExcelParserException;
+import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperHeader;
 import ir.bmi.api.excelParser.exception.IOExcelException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserHeader;
@@ -27,26 +27,17 @@ public class TextParserHeader implements ParserHeader {
         this.metaDataObjects = metaDataObjects;
     }
 
-    public ParserHeader getHeader() throws IOExcelException {
-//        try {
-//            return new WrapperHeader(new TextParserRow(contentFile.readLine(), 0));
-//        } catch (IOException e) {
-//            throw new IOExcelException("error in parse body", e);
-//        }
-        return null;
+    public WrapperHeader getHeader() throws IOExcelException {
+        try {
+            return new WrapperHeader(new TextParserRow(contentFile.readLine()));
+        } catch (IOException e) {
+            throw new IOExcelException("error in parse body", e);
+        }
     }
 
     public void create() {
-//        TextParserRow parserRow = new TextParserRow(result, this.metaDataObjects);
-//        parserRow.create();
-//        result.append(System.getProperty("line.separator"));
-    }
-
-    public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
-
-    }
-
-    public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
-
+        TextParserRow parserRow = new TextParserRow(result, this.metaDataObjects);
+        parserRow.create();
+        result.append(System.getProperty("line.separator"));
     }
 }

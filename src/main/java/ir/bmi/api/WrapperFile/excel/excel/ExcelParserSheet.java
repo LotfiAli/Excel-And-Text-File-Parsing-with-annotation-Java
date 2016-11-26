@@ -1,22 +1,26 @@
 package ir.bmi.api.WrapperFile.excel.excel;
 
-import ir.bmi.api.excelParser.exception.BaseExcelParserException;
+
+import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperBody;
+import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperHeader;
 import ir.bmi.api.excelParser.exception.IOExcelException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserSheet;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.util.Iterator;
 
 /**
  * Created by alotfi on 6/6/2016.
  */
 public class ExcelParserSheet implements ParserSheet {
-
     private XSSFSheet sheet;
     private XSSFWorkbook xssfWorkbook;
     private MetaDataObject metaDataObject;
     private String sheetName;
-    private ExcelParserBody wrapperBody;
+    private WrapperBody wrapperBody;
 
     public ExcelParserSheet(XSSFWorkbook xssfWorkbook, MetaDataObject metaDataObject) {
         this.xssfWorkbook = xssfWorkbook;
@@ -28,7 +32,9 @@ public class ExcelParserSheet implements ParserSheet {
         this.sheet = sheet;
     }
 
-    public ExcelParserBody getBody() throws IOExcelException {
+    public WrapperBody getBody() throws IOExcelException {
+
+        wrapperBody = new WrapperBody(new ExcelParserBody(sheet));
         return wrapperBody;
     }
 
@@ -36,31 +42,30 @@ public class ExcelParserSheet implements ParserSheet {
         return sheet.getSheetName();
     }
 
-    public String getSheetName() {
-        return sheet.getSheetName();
-    }
-
-    public void parse(MetaDataObject metaDataObject) throws BaseExcelParserException {
-        wrapperBody = new ExcelParserBody(sheet);
-        wrapperBody.parse(metaDataObject);
-    }
-
-    public void create(MetaDataObject metaDataObject) throws BaseExcelParserException {
+    public void create() throws IOExcelException {
         sheet = xssfWorkbook.createSheet(this.sheetName);
-
-        ExcelParserHeader parserRow = new ExcelParserHeader(xssfWorkbook, sheet, metaDataObject.getMetaDataObjects());
-        parserRow.create(metaDataObject);
-
-        wrapperBody = new ExcelParserBody(xssfWorkbook, sheet, metaDataObject.getMetaDataObjects());
-        wrapperBody.create(metaDataObject);
-
+        createHeader();
+        ExcelParserBody parserBody = createBody();
+        wrapperBody = new WrapperBody(parserBody);
     }
 
-    public XSSFWorkbook getXssfWorkbook() {
-        return xssfWorkbook;
+    private ExcelParserBody createBody() {
+        ExcelParserBody parserBody = new ExcelParserBody(xssfWorkbook,sheet, metaDataObject.getMetaDataObjects());
+        parserBody.create();
+        return parserBody;
     }
 
-    public void setXssfWorkbook(XSSFWorkbook xssfWorkbook) {
-        this.xssfWorkbook = xssfWorkbook;
+    private void createHeader() {
+        ExcelParserHeader parserRow = new ExcelParserHeader(xssfWorkbook,sheet, metaDataObject.getMetaDataObjects());
+        parserRow.create();
+//        wrapperHeader = new WrapperRow(parserRow);
+    }
+
+    public WrapperHeader getHeader() {
+        Iterator<Row> rowIterator = sheet.iterator();
+        if (rowIterator == null) {
+            throw new IllegalArgumentException();
+        }
+        return new WrapperHeader(new ExcelParserRow(rowIterator.next()));
     }
 }

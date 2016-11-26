@@ -1,6 +1,6 @@
 package test;
 
-import ir.bmi.api.WrapperFile.string.TextParser;
+import ir.bmi.api.WrapperFile.excel.text.TextParser;
 import ir.bmi.api.excelParser.base.ExcelManagerFactory;
 import ir.bmi.api.excelParser.base.ParserManager;
 import ir.bmi.api.excelParser.model.ResultModel;
@@ -15,11 +15,11 @@ public class Launcher {
     }
 
     private static void callFile() throws Exception {
-        ParserManager excelManager = ExcelManagerFactory.getParserManager(MessageFile.class, TextParser.createDeSerializeParser("d:\\book2.txt"));
+        ParserManager excelManager = ExcelManagerFactory.getParserManager(MessageFile.class,new TextParser("d:\\book2.txt"));
         ResultModel message = excelManager.deSerialize();
         System.out.println(message.getResultModel().toString());
 
-        ParserManager excelManager1 = ExcelManagerFactory.getParserManager(MessageFile.class, TextParser.createSerializeStringParser("d:\\book3.txt"));
+        ParserManager excelManager1 = ExcelManagerFactory.getParserManager(MessageFile.class,new TextParser("d:\\book3.txt"));
         excelManager1.serialize(message.getResultModel());
 
         System.out.println(message.getResultModel().toString());

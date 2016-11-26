@@ -41,7 +41,7 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
 
     protected static BaseMetaDataParser getParser(Field field) throws IllegalArgumentException {
         if (field != null) {
-            if (field.getType().isPrimitive() || field.getType() == String.class) {
+            if (field.getType().isPrimitive() || field.getType() == String.class || field.getType()==Long.class) {
                 return primitiveParse;
             } else {
                 if (checkIsGenericType(field))

@@ -8,7 +8,7 @@ import ir.bmi.api.excelParser.enumParser.StateValidationItem;
 public class ValidationResultItem {
 
     private int rowNumber;
-    private StateValidationItem code;
+    private String code;
     private String detailException;
     private String cellValue;
 
@@ -16,26 +16,30 @@ public class ValidationResultItem {
 
     }
 
-    public ValidationResultItem(StateValidationItem code, String detailException) {
+    public ValidationResultItem(String code) {
+        this.code=code;
+    }
+
+    public ValidationResultItem(String code, String detailException) {
         this(code, detailException, null);
     }
 
-    public ValidationResultItem(StateValidationItem code, String detailException, Integer rowNumber) {
+    public ValidationResultItem(String code, String detailException, Integer rowNumber) {
         this(code, detailException, rowNumber, null);
     }
 
-    public ValidationResultItem(StateValidationItem code, String detailException, Integer rowNumber, String cellValue) {
+    public ValidationResultItem(String code, String detailException, int rowNumber, String cellValue) {
         this.code = code;
         this.detailException = detailException;
         this.rowNumber = rowNumber;
         this.cellValue = cellValue;
     }
 
-    public StateValidationItem getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(StateValidationItem code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -57,15 +61,17 @@ public class ValidationResultItem {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(cellValue);
-        stringBuilder.append("     ");
-
-        if (code != null) {
-            stringBuilder.append(code.getTextError(detailException));
-            stringBuilder.append("  ");
-        }
-        stringBuilder.append(System.getProperty("line.separator"));
-        return stringBuilder.toString();
+        return code;
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append(cellValue);
+//        stringBuilder.append("     ");
+//
+//        if (code != null) {
+//            stringBuilder.append(code);
+//            stringBuilder.append("  ");
+//            stringBuilder.append(detailException);
+//        }
+//        stringBuilder.append(System.getProperty("line.separator"));
+//        return stringBuilder.toString();
     }
 }
