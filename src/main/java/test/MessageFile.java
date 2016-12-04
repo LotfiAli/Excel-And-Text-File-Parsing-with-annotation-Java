@@ -11,6 +11,9 @@ import java.util.List;
  * Created by alotfi on 6/8/2016.
  */
 public class MessageFile {
+
+    private String titel;
+
     @DescriptionColumn(description = "test")
     @CountColumn(count = 1)
     private HeaderString header;
@@ -25,7 +28,15 @@ public class MessageFile {
         this. header=new HeaderString();
     }
 
-//    public List<Header> getHeader() {
+    public String getTitel() {
+        return titel;
+    }
+
+    public void setTitel(String titel) {
+        this.titel = titel;
+    }
+
+    //    public List<Header> getHeader() {
 //        return header;
 //    }
 //

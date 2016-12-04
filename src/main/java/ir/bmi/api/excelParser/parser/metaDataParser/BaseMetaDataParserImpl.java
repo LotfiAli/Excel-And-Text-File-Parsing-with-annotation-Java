@@ -3,6 +3,16 @@ package ir.bmi.api.excelParser.parser.metaDataParser;
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.*;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.ColorParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.column.ColumnParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.column.CountColumnParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.column.DescriptionColumnParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.column.StartColumnParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.converter.ConverterParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.row.IndexRowParse;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.row.TitleHolderParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.sheet.SheetParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.validation.ValidationParser;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -26,6 +36,9 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
         parsersElements.add(new ColorParser());
         parsersElements.add(new CountColumnParser());
         parsersElements.add(new DescriptionColumnParser());
+        parsersElements.add(new IndexRowParse());
+        parsersElements.add(new TitleHolderParser());
+        parsersElements.add(new StartColumnParser());
 
     }
 

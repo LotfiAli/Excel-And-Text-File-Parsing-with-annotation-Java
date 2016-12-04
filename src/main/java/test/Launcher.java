@@ -26,12 +26,13 @@ public class Launcher {
     }
 
     private static void ExcelCall() throws Exception {
-        ParserManager excelManager = ExcelManagerFactory.getExcelParserManager("d:\\Book1.xlsx", MessageExcel.class);
-        ResultModel message = excelManager.deSerialize();
-        System.out.println(message.getResultModel().toString());
-
+//        ParserManager excelManager = ExcelManagerFactory.getExcelParserManager("d:\\Book1.xlsx", MessageExcel.class);
+//        ResultModel message = excelManager.deSerialize();
+//        System.out.println(message.getResultModel().toString());
+        MessageExcel messageExcel=new MessageExcel();
+        messageExcel.setTitel("hiii");
         ParserManager excelManagerSerialize = ExcelManagerFactory.getExcelParserManager("d:\\Book2.xlsx", MessageExcel.class);
-        excelManagerSerialize.serialize(message.getResultModel());
+        excelManagerSerialize.serialize(messageExcel);
     }
 
 

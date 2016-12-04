@@ -1,7 +1,8 @@
 package test;
 
+import ir.bmi.api.excelParser.annotation.row.IndexRow;
+import ir.bmi.api.excelParser.annotation.row.TitleHolder;
 import ir.bmi.api.excelParser.annotation.sheet.Sheet;
-import ir.bmi.api.excelParser.annotation.validation.NotNullValidation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,19 @@ import java.util.List;
  * Created by alotfi on 5/24/2016.
  */
 public class MessageExcel {
+
+    @TitleHolder(HaveHolder = false)
+    @IndexRow(Index = 0)
+    @Sheet(name = "test")
+    private String titel;
+
+    @TitleHolder(HaveHolder = true)
+    @IndexRow(Index = 1)
     @Sheet(name = "test")
     private Header header;
+
+    @TitleHolder(HaveHolder = true)
+    @IndexRow(Index = 2)
     @Sheet(name = "test1")
     private List<Body> message;
 
@@ -36,23 +48,31 @@ public class MessageExcel {
         this.message = message;
     }
 
+    public String getTitel() {
+        return titel;
+    }
+
+    public void setTitel(String titel) {
+        this.titel = titel;
+    }
+
     @Override
     public String toString() {
-        StringBuilder stringBuilder=new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(System.getProperty("line.separator"));
         stringBuilder.append("************sheet 1**************");
         stringBuilder.append(System.getProperty("line.separator"));
 //        for (Header h : header) {
-            stringBuilder.append(header.getName() + "              " + header.getFamily());
-            stringBuilder.append(System.getProperty("line.separator"));
+        stringBuilder.append(header.getName() + "              " + header.getFamily());
+        stringBuilder.append(System.getProperty("line.separator"));
 //        }
         stringBuilder.append("************sheet2******************");
         stringBuilder.append(System.getProperty("line.separator"));
-        for(Body body:message){
-            stringBuilder.append(body.getName()+"              "+body.getFamily()+"             "+body.getOld());
+        for (Body body : message) {
+            stringBuilder.append(body.getName() + "              " + body.getFamily() + "             " + body.getOld());
             stringBuilder.append(System.getProperty("line.separator"));
         }
-       return stringBuilder.toString();
+        return stringBuilder.toString();
 
     }
 }

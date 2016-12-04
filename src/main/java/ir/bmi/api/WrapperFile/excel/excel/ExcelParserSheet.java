@@ -10,7 +10,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by alotfi on 6/6/2016.
@@ -33,7 +35,6 @@ public class ExcelParserSheet implements ParserSheet {
     }
 
     public WrapperBody getBody() throws IOExcelException {
-
         wrapperBody = new WrapperBody(new ExcelParserBody(sheet));
         return wrapperBody;
     }
@@ -44,19 +45,30 @@ public class ExcelParserSheet implements ParserSheet {
 
     public void create() throws IOExcelException {
         sheet = xssfWorkbook.createSheet(this.sheetName);
-        createHeader();
-        ExcelParserBody parserBody = createBody();
+        createContentFile();
+    }
+
+    private void createContentFile() throws IOExcelException {
+        ExcelParserBody parserBody = null;
+        if (metaDataObject.getTitleHolder()) {
+            createHeader();
+            parserBody = createBody(metaDataObject.getMetaDataObjects());
+        } else {
+            ArrayList<MetaDataObject> metaDataObjects = new ArrayList<MetaDataObject>();
+            metaDataObjects.add(metaDataObject);
+            parserBody = createBody(metaDataObjects);
+        }
         wrapperBody = new WrapperBody(parserBody);
     }
 
-    private ExcelParserBody createBody() {
-        ExcelParserBody parserBody = new ExcelParserBody(xssfWorkbook,sheet, metaDataObject.getMetaDataObjects());
+    private ExcelParserBody createBody(List<MetaDataObject> metaDataObjects) {
+        ExcelParserBody parserBody = new ExcelParserBody(xssfWorkbook, sheet, metaDataObjects);
         parserBody.create();
         return parserBody;
     }
 
     private void createHeader() {
-        ExcelParserHeader parserRow = new ExcelParserHeader(xssfWorkbook,sheet, metaDataObject.getMetaDataObjects());
+        ExcelParserHeader parserRow = new ExcelParserHeader(xssfWorkbook, sheet, metaDataObject.getMetaDataObjects());
         parserRow.create();
 //        wrapperHeader = new WrapperRow(parserRow);
     }

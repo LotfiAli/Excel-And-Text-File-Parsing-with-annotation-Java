@@ -1,7 +1,6 @@
 package ir.bmi.api.excelParser.parser;
 
 
-
 import ir.bmi.api.excelParser.base.templateComponent.converter.Converter;
 import ir.bmi.api.excelParser.base.templateComponent.validation.ExecuteValidation;
 
@@ -34,13 +33,17 @@ public class MetaDataObject {
     private int red;
     private int countColumn;
     private String descriptionColumn;
-
+    private Boolean titleHolder;
+    private int startRowIndx;
+    private int spamCell;
+    private int startColumn;
 
     public MetaDataObject() {
         this.metaDataObjects = new ArrayList<MetaDataObject>();
         this.blue = 250;
         this.green = 250;
         this.red = 250;
+        this.spamCell = 1;
     }
 
     public TypeObject getTypeObject() {
@@ -193,5 +196,37 @@ public class MetaDataObject {
 
     public void setDescriptionColumn(String descriptionColumn) {
         this.descriptionColumn = descriptionColumn;
+    }
+
+    public Boolean getTitleHolder() {
+        return titleHolder;
+    }
+
+    public void setTitleHolder(Boolean titleHolder) {
+        this.titleHolder = titleHolder;
+    }
+
+    public int getStartRowIndx() {
+        return startRowIndx;
+    }
+
+    public void setStartRowIndx(int startRowIndx) {
+        this.startRowIndx = startRowIndx;
+    }
+
+    public int getSpamCell() {
+        return spamCell;
+    }
+
+    public void setSpamCell(int spamCell) {
+        this.spamCell = spamCell;
+    }
+
+    public int getStartColumn() {
+        return startColumn;
+    }
+
+    public void setStartColumn(int startColumn) {
+        this.startColumn = startColumn;
     }
 }

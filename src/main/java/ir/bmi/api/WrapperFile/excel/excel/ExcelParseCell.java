@@ -6,8 +6,10 @@ import ir.bmi.api.excelParser.parserWrapper.ParserCell;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.awt.*;
@@ -22,17 +24,19 @@ public class ExcelParseCell implements ParserCell {
     private MetaDataObject metaDataObject;
     private Boolean readHeader;
     private int index;
+    private XSSFSheet sheet;
 
     public ExcelParseCell(Cell cell) {
         this.cell = cell;
     }
 
-    public ExcelParseCell(XSSFWorkbook xssfWorkbook, Row row, MetaDataObject metaDataObject, Boolean readHeader, int index) {
+    public ExcelParseCell(XSSFSheet sheet, XSSFWorkbook xssfWorkbook, Row row, MetaDataObject metaDataObject, Boolean readHeader, int index) {
         this.xssfWorkbook = xssfWorkbook;
         this.row = row;
         this.metaDataObject = metaDataObject;
         this.readHeader = readHeader;
         this.index = index;
+        this.sheet = sheet;
     }
 
     public Object getCellValue() {
@@ -48,12 +52,21 @@ public class ExcelParseCell implements ParserCell {
             cell.setCellValue(metaDataObject.getName());
         else
             cell.setCellValue(metaDataObject.getValuePrimitive().toString());
+
     }
 
     private void setColor(Cell cell) {
         XSSFCellStyle style = xssfWorkbook.createCellStyle();
         style.setFillForegroundColor(new XSSFColor(new Color(metaDataObject.getRed(), metaDataObject.getGreen(), metaDataObject.getBlue())));
         style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        if (metaDataObject.getSpamCell() == Integer.MAX_VALUE) {
+            sheet.addMergedRegion(new CellRangeAddress(
+                    1, //first row (0-based)
+                    1, //last row  (0-based)
+                    1, //first column (0-based)
+                    2  //last column  (0-based)
+            ));
+        }
         cell.setCellStyle(style);
     }
 }

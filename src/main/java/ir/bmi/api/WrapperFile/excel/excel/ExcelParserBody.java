@@ -44,6 +44,7 @@ public class ExcelParserBody implements ParserBody {
 //        List<WrapperRow> bodyRows = new ArrayList<WrapperRow>();
         int index = 1;
         for (MetaDataObject rows : metaDataObjects) {
+            index=rows.getStartRowIndx();
             ExcelParserRow parserRow = new ExcelParserRow(xssfWorkbook,sheet, rows, index++);
             parserRow.create();
 //            bodyRows.add(new WrapperRow(parserRow));

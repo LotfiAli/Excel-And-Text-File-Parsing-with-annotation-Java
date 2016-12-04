@@ -1,7 +1,8 @@
-package ir.bmi.api.excelParser.parser.parsersAnnotation;
+package ir.bmi.api.excelParser.parser.parsersAnnotation.column;
 
 import ir.bmi.api.excelParser.annotation.column.CountColumn;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.BaseParser;
 
 import java.lang.reflect.Field;
 
