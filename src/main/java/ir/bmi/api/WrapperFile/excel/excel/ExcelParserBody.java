@@ -20,15 +20,17 @@ public class ExcelParserBody implements ParserBody {
     private XSSFWorkbook xssfWorkbook;
     private XSSFSheet sheet;
     private List<MetaDataObject> metaDataObjects;
+    private int index;
 
     public ExcelParserBody(XSSFSheet sheet) {
         this.sheet = sheet;
     }
 
-    public ExcelParserBody(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, List<MetaDataObject> metaDataObjects) {
+    public ExcelParserBody(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, List<MetaDataObject> metaDataObjects,int index) {
         this.xssfWorkbook = xssfWorkbook;
         this.sheet = sheet;
         this.metaDataObjects = metaDataObjects;
+        this.index=index;
     }
 
     public List<WrapperRow> getBody() {
@@ -42,9 +44,9 @@ public class ExcelParserBody implements ParserBody {
 
     public void create() {
 //        List<WrapperRow> bodyRows = new ArrayList<WrapperRow>();
-        int index = 1;
+//        int index =  metaDataObjects.getStartRowIndx();;
         for (MetaDataObject rows : metaDataObjects) {
-            index=rows.getStartRowIndx();
+//            index=rows.getStartRowIndx();
             ExcelParserRow parserRow = new ExcelParserRow(xssfWorkbook,sheet, rows, index++);
             parserRow.create();
 //            bodyRows.add(new WrapperRow(parserRow));

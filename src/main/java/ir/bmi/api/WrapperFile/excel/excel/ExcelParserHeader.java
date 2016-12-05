@@ -19,11 +19,13 @@ public class ExcelParserHeader implements ParserHeader {
     private XSSFWorkbook xssfWorkbook;
     private XSSFSheet sheet;
     private List<MetaDataObject> metaDataObjects;
+    private int indexRow;
 
-    public ExcelParserHeader(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, List<MetaDataObject> metaDataObjects) {
+    public ExcelParserHeader(XSSFWorkbook xssfWorkbook, XSSFSheet sheet, List<MetaDataObject> metaDataObjects, int indexRow) {
         this.xssfWorkbook = xssfWorkbook;
         this.sheet = sheet;
         this.metaDataObjects = metaDataObjects;
+        this.indexRow = indexRow;
     }
 
     public ExcelParserHeader(Row row) {
@@ -40,11 +42,11 @@ public class ExcelParserHeader implements ParserHeader {
     }
 
     public void create() {
-        Row row = sheet.createRow(0);
-        int index = 0;
+        Row row = sheet.createRow(indexRow);
+        int indexColumn = 0;
         List<MetaDataObject> metaDataObjects = this.metaDataObjects.get(0).getMetaDataObjects();
         for (MetaDataObject metaDataObject : metaDataObjects) {
-            ExcelParseCell cell = new ExcelParseCell(sheet,xssfWorkbook,row,metaDataObject, true, index++);
+            ExcelParseCell cell = new ExcelParseCell(sheet, xssfWorkbook, row, metaDataObject, true, indexColumn++);
             cell.create();
         }
     }

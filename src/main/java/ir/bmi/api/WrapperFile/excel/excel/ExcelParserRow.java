@@ -4,9 +4,7 @@ import ir.bmi.api.excelParser.base.templateComponent.wrapperFile.WrapperCell;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserRow;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -51,12 +49,17 @@ public class ExcelParserRow implements ParserRow {
         cellWrappers = new ArrayList<WrapperCell>();
         Row row = this.spreadsheet.createRow(this.index);
         int point = 0;
-        for (MetaDataObject cellValue : metaDataObject.getMetaDataObjects()) {
-            ExcelParseCell cell = new ExcelParseCell(spreadsheet,xssfWorkbook,row, cellValue, false, point++);
-            cell.create();
-//            cellWrappers.add(new WrapperCell(cell));
-        }
+        if (metaDataObject.getMetaDataObjects() != null && metaDataObject.getMetaDataObjects().size() > 0) {
+            for (MetaDataObject cellValue : metaDataObject.getMetaDataObjects())
+                createCell(row, point++, cellValue);
+        } else
+            createCell(row, point, metaDataObject);
+    }
 
+    private void createCell(Row row, Integer point, MetaDataObject cellValue) {
+        ExcelParseCell cell = new ExcelParseCell(spreadsheet, xssfWorkbook, row, cellValue, false, point++);
+        cell.create();
+//        return point;
     }
 
 

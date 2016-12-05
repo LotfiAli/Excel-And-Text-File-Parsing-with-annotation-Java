@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import java.util.List;
  * Created by alotfi on 6/6/2016.
  */
 public class ExcelParserSheet implements ParserSheet {
+
+    private HashMap<String, XSSFSheet> cacheSheet = new HashMap<String, XSSFSheet>();
     private XSSFSheet sheet;
     private XSSFWorkbook xssfWorkbook;
     private MetaDataObject metaDataObject;
@@ -44,7 +47,7 @@ public class ExcelParserSheet implements ParserSheet {
     }
 
     public void create() throws IOExcelException {
-        sheet = xssfWorkbook.createSheet(this.sheetName);
+        sheet = getSheet(this.sheetName);
         createContentFile();
     }
 
@@ -52,23 +55,23 @@ public class ExcelParserSheet implements ParserSheet {
         ExcelParserBody parserBody = null;
         if (metaDataObject.getTitleHolder()) {
             createHeader();
-            parserBody = createBody(metaDataObject.getMetaDataObjects());
+            parserBody = createBody(metaDataObject.getMetaDataObjects(),1+metaDataObject.getStartRowIndx());
         } else {
             ArrayList<MetaDataObject> metaDataObjects = new ArrayList<MetaDataObject>();
             metaDataObjects.add(metaDataObject);
-            parserBody = createBody(metaDataObjects);
+            parserBody = createBody(metaDataObjects,metaDataObject.getStartRowIndx());
         }
         wrapperBody = new WrapperBody(parserBody);
     }
 
-    private ExcelParserBody createBody(List<MetaDataObject> metaDataObjects) {
-        ExcelParserBody parserBody = new ExcelParserBody(xssfWorkbook, sheet, metaDataObjects);
+    private ExcelParserBody createBody(List<MetaDataObject> metaDataObjects,int index) {
+        ExcelParserBody parserBody = new ExcelParserBody(xssfWorkbook, sheet, metaDataObjects,index);
         parserBody.create();
         return parserBody;
     }
 
     private void createHeader() {
-        ExcelParserHeader parserRow = new ExcelParserHeader(xssfWorkbook, sheet, metaDataObject.getMetaDataObjects());
+        ExcelParserHeader parserRow = new ExcelParserHeader(xssfWorkbook, sheet, metaDataObject.getMetaDataObjects(),metaDataObject.getStartRowIndx());
         parserRow.create();
 //        wrapperHeader = new WrapperRow(parserRow);
     }
@@ -79,5 +82,12 @@ public class ExcelParserSheet implements ParserSheet {
             throw new IllegalArgumentException();
         }
         return new WrapperHeader(new ExcelParserRow(rowIterator.next()));
+    }
+
+    private XSSFSheet getSheet(String sheetName) {
+        if (xssfWorkbook.getSheet(sheetName)==null) {
+            sheet= xssfWorkbook.createSheet(this.sheetName);
+        }
+        return xssfWorkbook.getSheet(sheetName);
     }
 }

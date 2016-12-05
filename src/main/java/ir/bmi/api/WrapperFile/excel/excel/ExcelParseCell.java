@@ -18,6 +18,7 @@ import java.awt.*;
  * Created by alotfi on 6/6/2016.
  */
 public class ExcelParseCell implements ParserCell {
+    private static final int NORMAL_CELL = 1;
     private Cell cell;
     private XSSFWorkbook xssfWorkbook;
     private Row row;
@@ -59,12 +60,12 @@ public class ExcelParseCell implements ParserCell {
         XSSFCellStyle style = xssfWorkbook.createCellStyle();
         style.setFillForegroundColor(new XSSFColor(new Color(metaDataObject.getRed(), metaDataObject.getGreen(), metaDataObject.getBlue())));
         style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-        if (metaDataObject.getSpamCell() == Integer.MAX_VALUE) {
+        if (metaDataObject.getSpamCell() != NORMAL_CELL) {
             sheet.addMergedRegion(new CellRangeAddress(
-                    1, //first row (0-based)
-                    1, //last row  (0-based)
-                    1, //first column (0-based)
-                    2  //last column  (0-based)
+                    metaDataObject.getStartRowIndx(),
+                    metaDataObject.getStartRowIndx(), //last row  (0-based)
+                    metaDataObject.getStartColumn(), //first column (0-based)
+                    metaDataObject.getSpamCell()  //last column  (0-based)
             ));
         }
         cell.setCellStyle(style);

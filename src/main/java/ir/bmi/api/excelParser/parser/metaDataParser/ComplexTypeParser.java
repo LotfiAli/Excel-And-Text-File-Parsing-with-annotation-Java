@@ -4,6 +4,7 @@ package ir.bmi.api.excelParser.parser.metaDataParser;
 
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
+import ir.bmi.api.excelParser.parser.TypeObject;
 import ir.bmi.api.excelParser.reflection.Utility;
 
 import java.lang.reflect.Field;
@@ -31,6 +32,9 @@ public class ComplexTypeParser extends BaseComplexParser {
             metaDataObjectComposite.setSheetName(field.getName());
 
         metaDataObject.getMetaDataObjects().add(metaDataObjectComposite);
+        metaDataObjectComposite.getMetaDataObjects().add(metaDataObjectComposite);
+        metaDataObject.setTypeObject(TypeObject.COMPLEX);
+        metaDataObjectComposite.setTypeObject(TypeObject.COMPLEX);
         parseComplexObject(type, metaDataObjectComposite, targetObject, field);
 
     }

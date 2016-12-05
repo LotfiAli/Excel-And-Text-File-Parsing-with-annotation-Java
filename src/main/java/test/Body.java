@@ -20,6 +20,12 @@ public class Body {
     @ConvertTo(convertTo = TypeObject.Long)
     private double old;
 
+    public Body(String name, String family, double old) {
+        this.name = name;
+        this.family = family;
+        this.old = old;
+    }
+
     public Body() {
     }
 
