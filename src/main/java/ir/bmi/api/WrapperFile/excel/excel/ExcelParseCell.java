@@ -26,18 +26,25 @@ public class ExcelParseCell implements ParserCell {
     private Boolean readHeader;
     private int index;
     private XSSFSheet sheet;
-
+    private boolean isHeader;
     public ExcelParseCell(Cell cell) {
         this.cell = cell;
     }
 
     public ExcelParseCell(XSSFSheet sheet, XSSFWorkbook xssfWorkbook, Row row, MetaDataObject metaDataObject, Boolean readHeader, int index) {
+
+        this( sheet,  xssfWorkbook,  row,  metaDataObject,  readHeader,index,false);
+    }
+
+
+    public ExcelParseCell(XSSFSheet sheet, XSSFWorkbook xssfWorkbook, Row row, MetaDataObject metaDataObject, Boolean readHeader, int index, boolean isHeader) {
         this.xssfWorkbook = xssfWorkbook;
         this.row = row;
         this.metaDataObject = metaDataObject;
         this.readHeader = readHeader;
         this.index = index;
         this.sheet = sheet;
+        this.isHeader=isHeader;
     }
 
     public Object getCellValue() {
@@ -67,7 +74,16 @@ public class ExcelParseCell implements ParserCell {
                     metaDataObject.getStartColumn(), //first column (0-based)
                     metaDataObject.getSpamCell()  //last column  (0-based)
             ));
+
         }
+        if(isHeader)
+         style.setFillForegroundColor(new XSSFColor(new Color(metaDataObject.getRedHeader(), metaDataObject.getGreenHeader(), metaDataObject.getBlueHeader())));
+
+        style.setAlignment(metaDataObject.getAlign_cell().getValue());
+//        style.setBorderBottom(CellStyle.BORDER_DOUBLE);
+//        style.setBorderTop(CellStyle.BORDER_THIN);
+//        style.setBorderLeft(CellStyle.BORDER_THIN);
+//        style.setBorderRight(CellStyle.BORDER_THIN);
         cell.setCellStyle(style);
     }
 }

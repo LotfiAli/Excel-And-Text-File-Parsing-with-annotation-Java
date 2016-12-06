@@ -1,5 +1,7 @@
 package test;
 
+import ir.bmi.api.excelParser.annotation.cell.ALIGN_CELL;
+import ir.bmi.api.excelParser.annotation.cell.AlignCell;
 import ir.bmi.api.excelParser.annotation.cell.SpamCell;
 import ir.bmi.api.excelParser.annotation.column.StartColumn;
 import ir.bmi.api.excelParser.annotation.row.IndexRow;
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public class MessageExcel {
 
-
+    @AlignCell(Align = ALIGN_CELL.ALIGN_LEFT)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 0)
     @Sheet(name = "test")

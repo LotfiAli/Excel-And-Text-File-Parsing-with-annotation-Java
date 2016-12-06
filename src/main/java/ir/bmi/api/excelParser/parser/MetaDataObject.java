@@ -1,6 +1,7 @@
 package ir.bmi.api.excelParser.parser;
 
 
+import ir.bmi.api.excelParser.annotation.cell.ALIGN_CELL;
 import ir.bmi.api.excelParser.base.templateComponent.converter.Converter;
 import ir.bmi.api.excelParser.base.templateComponent.validation.ExecuteValidation;
 
@@ -31,19 +32,31 @@ public class MetaDataObject {
     private int blue;
     private int green;
     private int red;
+
+    private int blueHeader;
+    private int greenHeader;
+    private int redHeader;
+
     private int countColumn;
     private String descriptionColumn;
     private Boolean titleHolder;
     private int startRowIndx;
     private int spamCell;
     private int startColumn;
+    private ALIGN_CELL align_cell;
 
     public MetaDataObject() {
         this.metaDataObjects = new ArrayList<MetaDataObject>();
         this.blue = 250;
         this.green = 250;
         this.red = 250;
+
+        this.blueHeader = 250;
+        this.greenHeader = 250;
+        this.redHeader = 250;
+
         this.spamCell = 1;
+        this.align_cell = ALIGN_CELL.ALIGN_CENTER;
     }
 
     public TypeObject getTypeObject() {
@@ -228,5 +241,37 @@ public class MetaDataObject {
 
     public void setStartColumn(int startColumn) {
         this.startColumn = startColumn;
+    }
+
+    public ALIGN_CELL getAlign_cell() {
+        return align_cell;
+    }
+
+    public void setAlign_cell(ALIGN_CELL align_cell) {
+        this.align_cell = align_cell;
+    }
+
+    public int getBlueHeader() {
+        return blueHeader;
+    }
+
+    public void setBlueHeader(int blueHeader) {
+        this.blueHeader = blueHeader;
+    }
+
+    public int getGreenHeader() {
+        return greenHeader;
+    }
+
+    public void setGreenHeader(int greenHeader) {
+        this.greenHeader = greenHeader;
+    }
+
+    public int getRedHeader() {
+        return redHeader;
+    }
+
+    public void setRedHeader(int redHeader) {
+        this.redHeader = redHeader;
     }
 }

@@ -46,7 +46,7 @@ public class ExcelParserHeader implements ParserHeader {
         int indexColumn = 0;
         List<MetaDataObject> metaDataObjects = this.metaDataObjects.get(0).getMetaDataObjects();
         for (MetaDataObject metaDataObject : metaDataObjects) {
-            ExcelParseCell cell = new ExcelParseCell(sheet, xssfWorkbook, row, metaDataObject, true, indexColumn++);
+            ExcelParseCell cell = new ExcelParseCell(sheet, xssfWorkbook, row, metaDataObject, true, indexColumn++,true);
             cell.create();
         }
     }

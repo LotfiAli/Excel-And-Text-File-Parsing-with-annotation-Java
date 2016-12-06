@@ -3,6 +3,8 @@ package ir.bmi.api.excelParser.parser.metaDataParser;
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.*;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.AlignCellParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.ColorHeaderParser;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.ColorParser;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.SpamCellParser;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.column.ColumnParser;
@@ -41,6 +43,8 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
         parsersElements.add(new TitleHolderParser());
         parsersElements.add(new StartColumnParser());
         parsersElements.add(new SpamCellParser());
+        parsersElements.add(new AlignCellParser());
+        parsersElements.add(new ColorHeaderParser());
 
     }
 
