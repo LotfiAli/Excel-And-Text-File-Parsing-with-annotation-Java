@@ -49,6 +49,7 @@ public class ExcelParserSheet implements ParserSheet {
     public void create() throws IOExcelException {
         sheet = getSheet(this.sheetName);
 //        sheet.setRightToLeft(true);
+        sheet.setDisplayGridlines(false);
         createContentFile();
     }
 

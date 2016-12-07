@@ -2,6 +2,7 @@ package ir.bmi.api.excelParser.parser;
 
 
 import ir.bmi.api.excelParser.annotation.cell.ALIGN_CELL;
+import ir.bmi.api.excelParser.annotation.cell.BORDER_CELL;
 import ir.bmi.api.excelParser.base.templateComponent.converter.Converter;
 import ir.bmi.api.excelParser.base.templateComponent.validation.ExecuteValidation;
 
@@ -44,6 +45,10 @@ public class MetaDataObject {
     private int spamCell;
     private int startColumn;
     private ALIGN_CELL align_cell;
+    private BORDER_CELL borderCellTop;
+    private BORDER_CELL borderCellBottom;
+    private BORDER_CELL borderCellLeft;
+    private BORDER_CELL borderCellRight;
 
     public MetaDataObject() {
         this.metaDataObjects = new ArrayList<MetaDataObject>();
@@ -57,6 +62,11 @@ public class MetaDataObject {
 
         this.spamCell = 1;
         this.align_cell = ALIGN_CELL.ALIGN_CENTER;
+
+        this.borderCellTop = BORDER_CELL.BORDER_NONE;
+        this.borderCellBottom = BORDER_CELL.BORDER_NONE;
+        this.borderCellRight = BORDER_CELL.BORDER_NONE;
+        this.borderCellLeft = BORDER_CELL.BORDER_NONE;
     }
 
     public TypeObject getTypeObject() {
@@ -273,5 +283,37 @@ public class MetaDataObject {
 
     public void setRedHeader(int redHeader) {
         this.redHeader = redHeader;
+    }
+
+    public BORDER_CELL getBorderCellTop() {
+        return borderCellTop;
+    }
+
+    public void setBorderCellTop(BORDER_CELL borderCellTop) {
+        this.borderCellTop = borderCellTop;
+    }
+
+    public BORDER_CELL getBorderCellBottom() {
+        return borderCellBottom;
+    }
+
+    public void setBorderCellBottom(BORDER_CELL borderCellBottom) {
+        this.borderCellBottom = borderCellBottom;
+    }
+
+    public BORDER_CELL getBorderCellLeft() {
+        return borderCellLeft;
+    }
+
+    public void setBorderCellLeft(BORDER_CELL borderCellLeft) {
+        this.borderCellLeft = borderCellLeft;
+    }
+
+    public BORDER_CELL getBorderCellRight() {
+        return borderCellRight;
+    }
+
+    public void setBorderCellRight(BORDER_CELL borderCellRight) {
+        this.borderCellRight = borderCellRight;
     }
 }

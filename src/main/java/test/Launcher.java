@@ -36,11 +36,11 @@ public class Launcher {
         messageExcel.setFamily("ali");
         messageExcel.setName("tt");
         List<Body> message = new ArrayList<Body>();
-        message.add(new Body("Ali", "lotfi", 10));
-        message.add(new Body("Ali1", "lotfi1", 11));
-        message.add(new Body("Ali2", "lotfi2", 12));
-        message.add(new Body("Ali3", "lotfi3", 13));
-        message.add(new Body("Ali4", "lotfi4", 14));
+        message.add(new Body("Ali", "lotfi", 10, "lotfi", 10));
+        message.add(new Body("Ali1", "lotfi1", 11, "lotfi", 10));
+        message.add(new Body("Ali2", "lotfi2", 12, "lotfi", 10));
+        message.add(new Body("Ali3", "lotfi3", 13, "lotfi", 10));
+        message.add(new Body("Ali4", "lotfi4", 14, "lotfi", 10));
         messageExcel.setMessage(message);
         ParserManager excelManagerSerialize = ExcelManagerFactory.getExcelParserManager("d:\\Book2.xlsx", MessageExcel.class);
         excelManagerSerialize.serialize(messageExcel);

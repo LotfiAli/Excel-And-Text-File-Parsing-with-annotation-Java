@@ -1,8 +1,6 @@
 package test;
 
-import ir.bmi.api.excelParser.annotation.cell.ALIGN_CELL;
-import ir.bmi.api.excelParser.annotation.cell.AlignCell;
-import ir.bmi.api.excelParser.annotation.cell.SpamCell;
+import ir.bmi.api.excelParser.annotation.cell.*;
 import ir.bmi.api.excelParser.annotation.column.StartColumn;
 import ir.bmi.api.excelParser.annotation.row.IndexRow;
 import ir.bmi.api.excelParser.annotation.row.TitleHolder;
@@ -15,6 +13,10 @@ import java.util.List;
  */
 public class MessageExcel {
 
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @BorderUp(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @BoredrBottom(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @BorderLeft(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @AlignCell(Align = ALIGN_CELL.ALIGN_LEFT)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 0)
@@ -23,6 +25,7 @@ public class MessageExcel {
     @SpamCell(SpamCell = 4)
     private String titel;
 
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 1)
     @Sheet(name = "test")
@@ -30,6 +33,7 @@ public class MessageExcel {
     @SpamCell(SpamCell = 4)
     private String description;
 
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 2)
     @Sheet(name = "test")
@@ -37,6 +41,7 @@ public class MessageExcel {
     @SpamCell(SpamCell = 4)
     private String name;
 
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 3)
     @Sheet(name = "test")
@@ -49,8 +54,9 @@ public class MessageExcel {
 //    @Sheet(name = "test")
 //    private Header header;
 //
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @TitleHolder(HaveHolder = true)
-    @IndexRow(Index = 10)
+    @IndexRow(Index = 4)
     @Sheet(name = "test")
     @StartColumn(Start = 0)
     private List<Body> message;

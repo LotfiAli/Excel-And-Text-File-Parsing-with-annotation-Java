@@ -27,13 +27,14 @@ public class ExcelParseCell implements ParserCell {
     private int index;
     private XSSFSheet sheet;
     private boolean isHeader;
+
     public ExcelParseCell(Cell cell) {
         this.cell = cell;
     }
 
     public ExcelParseCell(XSSFSheet sheet, XSSFWorkbook xssfWorkbook, Row row, MetaDataObject metaDataObject, Boolean readHeader, int index) {
 
-        this( sheet,  xssfWorkbook,  row,  metaDataObject,  readHeader,index,false);
+        this(sheet, xssfWorkbook, row, metaDataObject, readHeader, index, false);
     }
 
 
@@ -44,7 +45,7 @@ public class ExcelParseCell implements ParserCell {
         this.readHeader = readHeader;
         this.index = index;
         this.sheet = sheet;
-        this.isHeader=isHeader;
+        this.isHeader = isHeader;
     }
 
     public Object getCellValue() {
@@ -67,23 +68,32 @@ public class ExcelParseCell implements ParserCell {
         XSSFCellStyle style = xssfWorkbook.createCellStyle();
         style.setFillForegroundColor(new XSSFColor(new Color(metaDataObject.getRed(), metaDataObject.getGreen(), metaDataObject.getBlue())));
         style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+
+        style.setAlignment(metaDataObject.getAlign_cell().getValue());
+
+        style.setBorderBottom(metaDataObject.getBorderCellBottom().getValue());
+        style.setBorderTop(metaDataObject.getBorderCellTop().getValue());
+        style.setBorderLeft(metaDataObject.getBorderCellLeft().getValue());
+        style.setBorderRight(metaDataObject.getBorderCellRight().getValue());
+
         if (metaDataObject.getSpamCell() != NORMAL_CELL) {
-            sheet.addMergedRegion(new CellRangeAddress(
+
+            for (int i = metaDataObject.getStartColumn(); i <= metaDataObject.getSpamCell(); ++i) {
+                Cell cellRegin = row.createCell(i);
+                cellRegin.setCellStyle(style);
+            }
+
+            CellRangeAddress region = new CellRangeAddress(
                     metaDataObject.getStartRowIndx(),
                     metaDataObject.getStartRowIndx(), //last row  (0-based)
                     metaDataObject.getStartColumn(), //first column (0-based)
                     metaDataObject.getSpamCell()  //last column  (0-based)
-            ));
+            );
+            sheet.addMergedRegion(region);
 
         }
-        if(isHeader)
-         style.setFillForegroundColor(new XSSFColor(new Color(metaDataObject.getRedHeader(), metaDataObject.getGreenHeader(), metaDataObject.getBlueHeader())));
-
-        style.setAlignment(metaDataObject.getAlign_cell().getValue());
-//        style.setBorderBottom(CellStyle.BORDER_DOUBLE);
-//        style.setBorderTop(CellStyle.BORDER_THIN);
-//        style.setBorderLeft(CellStyle.BORDER_THIN);
-//        style.setBorderRight(CellStyle.BORDER_THIN);
+        if (isHeader)
+            style.setFillForegroundColor(new XSSFColor(new Color(metaDataObject.getRedHeader(), metaDataObject.getGreenHeader(), metaDataObject.getBlueHeader())));
         cell.setCellStyle(style);
     }
 }

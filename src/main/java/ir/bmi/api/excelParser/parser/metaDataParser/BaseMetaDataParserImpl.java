@@ -2,11 +2,8 @@ package ir.bmi.api.excelParser.parser.metaDataParser;
 
 import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.*;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.AlignCellParser;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.ColorHeaderParser;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.ColorParser;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.SpamCellParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.ParsersElement;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.*;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.column.ColumnParser;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.column.CountColumnParser;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.column.DescriptionColumnParser;
@@ -45,6 +42,10 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
         parsersElements.add(new SpamCellParser());
         parsersElements.add(new AlignCellParser());
         parsersElements.add(new ColorHeaderParser());
+        parsersElements.add(new BoredrUpParser());
+        parsersElements.add(new BoredrBottomParser());
+        parsersElements.add(new BoredrLeftParser());
+        parsersElements.add(new BoredrRightParser());
 
     }
 
@@ -60,7 +61,7 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
 
     protected static BaseMetaDataParser getParser(Field field) throws IllegalArgumentException {
         if (field != null) {
-            if (field.getType().isPrimitive() || field.getType() == String.class || field.getType()==Long.class) {
+            if (field.getType().isPrimitive() || field.getType() == String.class || field.getType() == Long.class) {
                 return primitiveParse;
             } else {
                 if (checkIsGenericType(field))
