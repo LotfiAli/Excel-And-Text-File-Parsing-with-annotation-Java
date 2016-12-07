@@ -58,7 +58,7 @@ public class ExcelParseCell implements ParserCell {
         Cell cell = row.createCell(index);
         setColor(cell);
         if (readHeader)
-            cell.setCellValue(metaDataObject.getName());
+            cell.setCellValue(metaDataObject.getColumnTitel());
         else
             cell.setCellValue(metaDataObject.getValuePrimitive().toString());
 

@@ -4,10 +4,7 @@ import ir.bmi.api.excelParser.exception.BaseExcelParserException;
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.ParsersElement;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.cell.*;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.column.ColumnParser;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.column.CountColumnParser;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.column.DescriptionColumnParser;
-import ir.bmi.api.excelParser.parser.parsersAnnotation.column.StartColumnParser;
+import ir.bmi.api.excelParser.parser.parsersAnnotation.column.*;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.converter.ConverterParser;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.row.IndexRowParse;
 import ir.bmi.api.excelParser.parser.parsersAnnotation.row.TitleHolderParser;
@@ -46,6 +43,7 @@ public abstract class BaseMetaDataParserImpl implements BaseMetaDataParser {
         parsersElements.add(new BoredrBottomParser());
         parsersElements.add(new BoredrLeftParser());
         parsersElements.add(new BoredrRightParser());
+        parsersElements.add(new ColumnTitelParser());
 
     }
 

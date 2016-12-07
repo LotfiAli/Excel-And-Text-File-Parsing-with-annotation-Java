@@ -1,6 +1,7 @@
 package test;
 
 import ir.bmi.api.excelParser.annotation.cell.*;
+import ir.bmi.api.excelParser.annotation.column.ColumnTitel;
 import ir.bmi.api.excelParser.annotation.converter.ConvertTo;
 import ir.bmi.api.excelParser.annotation.sheet.Sheet;
 import ir.bmi.api.excelParser.annotation.validation.NotNullValidation;
@@ -19,6 +20,7 @@ public class Body {
     @BoredrBottom(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @BorderLeft(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @ColorHeader(blue = 100,green = 10,red = 60)
+    @ColumnTitel(TitelName = "نام")
     private String name;
     @ConvertTo(convertTo = TypeObject.STRING)
     @NotNullValidation()
@@ -27,6 +29,7 @@ public class Body {
     @BorderUp(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @BoredrBottom(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @BorderLeft(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @ColumnTitel(TitelName = " نام خانوادگی")
     private String family;
 
     @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
@@ -35,6 +38,7 @@ public class Body {
     @BorderLeft(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @ConvertTo(convertTo = TypeObject.Long)
     @ColorHeader(blue = 100,green = 10,red = 60)
+    @ColumnTitel(TitelName = "سن")
     private double old;
 
     @ConvertTo(convertTo = TypeObject.STRING)
@@ -44,6 +48,7 @@ public class Body {
     @BorderUp(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @BoredrBottom(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
     @BorderLeft(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @ColumnTitel(TitelName = "فامیلی")
     private String family1;
 
     @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
@@ -53,6 +58,7 @@ public class Body {
     @ConvertTo(convertTo = TypeObject.Long)
     @ColorHeader(blue = 100,green = 10,red = 60)
     @ColorCell(blue = 100,green = 10,red = 60)
+    @ColumnTitel(TitelName = "سن واقعی")
     private double old1;
 
 

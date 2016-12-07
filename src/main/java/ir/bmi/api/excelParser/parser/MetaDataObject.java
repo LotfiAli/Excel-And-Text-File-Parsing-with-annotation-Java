@@ -50,6 +50,9 @@ public class MetaDataObject {
     private BORDER_CELL borderCellLeft;
     private BORDER_CELL borderCellRight;
 
+    private String columnTitel;
+
+
     public MetaDataObject() {
         this.metaDataObjects = new ArrayList<MetaDataObject>();
         this.blue = 250;
@@ -67,6 +70,8 @@ public class MetaDataObject {
         this.borderCellBottom = BORDER_CELL.BORDER_NONE;
         this.borderCellRight = BORDER_CELL.BORDER_NONE;
         this.borderCellLeft = BORDER_CELL.BORDER_NONE;
+
+        this.columnTitel = "noName";
     }
 
     public TypeObject getTypeObject() {
@@ -315,5 +320,13 @@ public class MetaDataObject {
 
     public void setBorderCellRight(BORDER_CELL borderCellRight) {
         this.borderCellRight = borderCellRight;
+    }
+
+    public String getColumnTitel() {
+        return columnTitel;
+    }
+
+    public void setColumnTitel(String columnTitel) {
+        this.columnTitel = columnTitel;
     }
 }
