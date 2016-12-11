@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class MessageExcel {
 
-    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
-    @BorderUp(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
-    @BoredrBottom(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
-    @BorderLeft(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_THIN)
+    @BorderUp(BOrderCell = BORDER_CELL.BORDER_THIN)
+    @BoredrBottom(BOrderCell = BORDER_CELL.BORDER_THIN)
+    @BorderLeft(BOrderCell = BORDER_CELL.BORDER_THIN)
     @AlignCell(Align = ALIGN_CELL.ALIGN_LEFT)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 0)
@@ -25,7 +25,7 @@ public class MessageExcel {
     @SpamCell(SpamCell = 4)
     private String titel;
 
-    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_THIN)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 1)
     @Sheet(name = "test")
@@ -33,7 +33,7 @@ public class MessageExcel {
     @SpamCell(SpamCell = 4)
     private String description;
 
-    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_THIN)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 2)
     @Sheet(name = "test")
@@ -41,7 +41,7 @@ public class MessageExcel {
     @SpamCell(SpamCell = 4)
     private String name;
 
-    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_THIN)
     @TitleHolder(HaveHolder = false)
     @IndexRow(Index = 3)
     @Sheet(name = "test")
@@ -54,7 +54,7 @@ public class MessageExcel {
 //    @Sheet(name = "test")
 //    private Header header;
 //
-    @BorderRight(BOrderCell = BORDER_CELL.BORDER_MEDIUM)
+    @BorderRight(BOrderCell = BORDER_CELL.BORDER_THIN)
     @TitleHolder(HaveHolder = true)
     @IndexRow(Index = 4)
     @Sheet(name = "test")
