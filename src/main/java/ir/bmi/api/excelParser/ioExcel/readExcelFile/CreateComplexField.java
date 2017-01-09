@@ -39,8 +39,5 @@ public class CreateComplexField extends CreateObjectFromMetaData {
         } catch (Exception e) {
             validationResult.addItem(new ValidationResultItem(StateValidationItem.READ_FIELD_ERROR.getTextError(), metaDate.getDescriptionColumn(), bodyRow.getRowNumber()));
         }
-
     }
-
-
 }

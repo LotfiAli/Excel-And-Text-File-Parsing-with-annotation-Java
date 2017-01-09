@@ -3,6 +3,7 @@ package ir.bmi.api.WrapperFile.excel.excel;
 
 import ir.bmi.api.excelParser.parser.MetaDataObject;
 import ir.bmi.api.excelParser.parserWrapper.ParserCell;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -13,12 +14,14 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.awt.*;
+import java.util.GregorianCalendar;
 
 /**
  * Created by alotfi on 6/6/2016.
  */
 public class ExcelParseCell implements ParserCell {
     private static final int NORMAL_CELL = 1;
+
     private Cell cell;
     private XSSFWorkbook xssfWorkbook;
     private Row row;
@@ -59,8 +62,16 @@ public class ExcelParseCell implements ParserCell {
         setColor(cell);
         if (readHeader)
             cell.setCellValue(metaDataObject.getColumnTitel());
-        else
+        else {
+            if (metaDataObject.getType() == double.class|| metaDataObject.getType() == long.class) {
+//                cell.setCellValue(1002515);
+                cell.setCellValue(Double.parseDouble(metaDataObject.getValuePrimitive().toString()));
+                cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+
+            }else
             cell.setCellValue(metaDataObject.getValuePrimitive().toString());
+        }
+
 
     }
 
@@ -94,6 +105,33 @@ public class ExcelParseCell implements ParserCell {
         }
         if (isHeader)
             style.setFillForegroundColor(new XSSFColor(new Color(metaDataObject.getRedHeader(), metaDataObject.getGreenHeader(), metaDataObject.getBlueHeader())));
+        setFormatStyleCell(style);
         cell.setCellStyle(style);
+    }
+
+    private void setFormatStyleCell(XSSFCellStyle style) {
+
+        if (metaDataObject.getType() == double.class|| metaDataObject.getType() == long.class) {
+            style.setDataFormat(HSSFDataFormat.getBuiltinFormat("#,##0"));
+
+        }
+
+//        switch (metaDataObject.getTypeObject()) {
+//
+//            case COMPLEX:
+//                break;
+//            case INT:
+//                break;
+//            case STRING:
+////                style.setDataFormat();
+//                break;
+//            case Boolean:
+//                break;
+//            case Long:
+//                style.setDataFormat(HSSFDataFormat.getBuiltinFormat("#,###"));
+//                break;
+//            case FLOAT:
+//                break;
+//        }
     }
 }

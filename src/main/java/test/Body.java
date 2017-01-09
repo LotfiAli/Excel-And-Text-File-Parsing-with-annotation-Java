@@ -39,7 +39,7 @@ public class Body {
     @ConvertTo(convertTo = TypeObject.Long)
     @ColorHeader(blue = 100,green = 10,red = 60)
     @ColumnTitel(TitelName = "سن")
-    private double old;
+    private long old;
 
     @ConvertTo(convertTo = TypeObject.STRING)
     @NotNullValidation()
@@ -59,10 +59,10 @@ public class Body {
     @ColorHeader(blue = 100,green = 10,red = 60)
     @ColorCell(blue = 100,green = 10,red = 60)
     @ColumnTitel(TitelName = "سن واقعی")
-    private double old1;
+    private long old1;
 
 
-    public Body(String name, String family, double old, String family1, double old1) {
+    public Body(String name, String family, long old, String family1, long old1) {
         this.name = name;
         this.family = family;
         this.old = old;
@@ -90,11 +90,11 @@ public class Body {
         this.family = family;
     }
 
-    public double getOld() {
+    public long getOld() {
         return old;
     }
 
-    public void setOld(double old) {
+    public void setOld(long old) {
         this.old = old;
     }
 
@@ -106,11 +106,11 @@ public class Body {
         this.family1 = family1;
     }
 
-    public double getOld1() {
+    public long getOld1() {
         return old1;
     }
 
-    public void setOld1(double old1) {
+    public void setOld1(long old1) {
         this.old1 = old1;
     }
 }

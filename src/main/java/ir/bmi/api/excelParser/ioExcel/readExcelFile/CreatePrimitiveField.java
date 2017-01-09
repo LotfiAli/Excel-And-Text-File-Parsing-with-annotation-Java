@@ -26,7 +26,6 @@ public class CreatePrimitiveField extends CreateObjectFromMetaData {
 
     }
 
-
     //This code must be refactoring
     @Override
     protected void readField(WrapperBody body, MetaDataObject metaDate) throws BaseExcelParserException {
